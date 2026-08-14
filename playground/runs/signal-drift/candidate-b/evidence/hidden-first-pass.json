@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "case": "signal-drift",
+  "candidate": "candidate-b",
+  "oracle_sha256": "6af3754f9e4f530e7f21866ef2c428e2130d6d825e16ab402775138cc1969b1e",
+  "commands": [
+    {"command": "npm ci", "exit_code": 0},
+    {"command": "npm test -- --run", "exit_code": 0, "result": "2 files, 16 tests passed"},
+    {"command": "npm run build", "exit_code": 0, "result": "TypeScript and Vite production build passed"}
+  ],
+  "failed_acceptance": [],
+  "passed_observations": [
+    "Core rules match 750ms damage, 800ms grace, one point per active second, deterministic seed/input/dt, difficulty growth, and 100ms dt clamp.",
+    "P/Escape, visible pause, blur pause, game-over Enter, and visible restart are wired; restart clears lifecycle state.",
+    "Desktop and 390x844 assembled review recorded no overflow and retained accessible telemetry outside the canvas.",
+    "Fresh install, 16 tests, typecheck, build, and governance checks are reproducible."
+  ],
+  "unresolved_environment_evidence": [
+    "The first-pass browser backend could not naturally emit blur by opening another tab. Source and tests cover the handler; final hidden evaluation should dispatch blur in an automated browser if available."
+  ]
+}

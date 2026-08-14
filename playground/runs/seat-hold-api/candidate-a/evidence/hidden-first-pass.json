@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "case": "seat-hold-api",
+  "candidate": "candidate-a",
+  "oracle_sha256": "77011f410bcd912cfef9767200040f5b2c32fc6f4ca115d8b75f62e5bae5dae4",
+  "commands": [
+    {"command": "UV_CACHE_DIR=/tmp/dsh-sdd-uv-cache uv run --frozen --all-groups pytest -q", "exit_code": 1, "result": "Fresh Python 3.13 environment failed collection: ModuleNotFoundError: No module named 'tests' from tests/test_api.py importing tests.conftest."},
+    {"command": "PYTHONPATH=. .venv/bin/python -m pytest -q", "exit_code": 0, "result": "13 tests passed; confirms product tests pass when repository root is forced onto import path."}
+  ],
+  "failed_acceptance": [
+    {
+      "criterion": "SH-07",
+      "finding": "The documented fresh verify command does not reproduce on supported Python 3.13 because tests is not an importable package. Fix test packaging/imports so the handoff command passes without an undocumented PYTHONPATH override."
+    }
+  ],
+  "passed_observations": [
+    "HTTP contract includes customer_id, body idempotency_key, TTL 1..900, exact four states, DELETE cancellation, and stable timestamps.",
+    "Lazy expiry, confirmed-seat occupancy, SQLite race protection, and persistent idempotency are implemented and covered by source tests.",
+    "With import path corrected, all 13 product tests pass."
+  ]
+}

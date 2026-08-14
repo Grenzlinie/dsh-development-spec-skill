@@ -1,0 +1,49 @@
+{
+  "case": "research-runboard",
+  "stage": "product",
+  "maximum": 70,
+  "candidates": {
+    "candidate-a": {
+      "score": 60.0,
+      "dimensions": {
+        "acceptance": {
+          "score": 31.5,
+          "maximum": 35,
+          "criteria": [
+            {"id": "RR-01", "score": 7, "maximum": 7, "evidence": ["playground/runs/research-runboard/candidate-a/src/data.ts", "playground/evaluation/screenshots/research-runboard/candidate-a-1440x900.png"], "deduction": null},
+            {"id": "RR-02", "score": 6, "maximum": 6, "evidence": ["playground/runs/research-runboard/candidate-a/src/App.tsx", "playground/evaluation/command-results/product-verification.json"], "deduction": null},
+            {"id": "RR-03", "score": 5, "maximum": 5, "evidence": ["playground/runs/research-runboard/candidate-a/src/App.tsx", "playground/runs/research-runboard/candidate-a/src/App.test.tsx"], "deduction": null},
+            {"id": "RR-04", "score": 5, "maximum": 5, "evidence": ["playground/runs/research-runboard/candidate-a/src/App.tsx", "playground/evaluation/command-results/product-verification.json"], "deduction": null},
+            {"id": "RR-05", "score": 2, "maximum": 5, "evidence": ["playground/evaluation/screenshots/research-runboard/candidate-a-390x844.png", "playground/runs/research-runboard/candidate-a/src/styles.css"], "deduction": "The page itself does not overflow, but the mobile runboard exposes an internal horizontal scrollbar and list rows omit owner, environment, and timing; those fields require opening details instead of remaining load-bearing scan information."},
+            {"id": "RR-06", "score": 3.5, "maximum": 4, "evidence": ["playground/runs/research-runboard/candidate-a/src/App.tsx", "playground/runs/research-runboard/candidate-a/src/styles.css"], "deduction": "Controls have accessible names, semantic status labels, and focus-visible CSS, but the modal drawer does not implement Escape close or focus containment."},
+            {"id": "RR-07", "score": 3, "maximum": 3, "evidence": ["playground/runs/research-runboard/candidate-a/src/App.test.tsx", "playground/evaluation/command-results/product-verification.json"], "deduction": null}
+          ]
+        },
+        "robustness": {"score": 8.5, "maximum": 10, "evidence": ["playground/runs/research-runboard/candidate-a/src/App.tsx", "playground/runs/research-runboard/candidate-a/src/App.test.tsx"], "deduction": "Trimmed mixed-case search and rapid local recomputation are sound; missing optional metadata and rapid filter sequences are not explicitly tested, and split project metadata can silently disappear."},
+        "ux": {"score": 7.5, "maximum": 10, "evidence": ["playground/evaluation/screenshots/research-runboard/candidate-a-1440x900.png", "playground/evaluation/screenshots/research-runboard/candidate-a-390x844.png"], "deduction": "Desktop triage hierarchy is polished, but mobile scanning is weakened by tiny truncated issue copy, missing owner/timing/environment, and a visible internal horizontal scrollbar."},
+        "test_quality": {"score": 12.5, "maximum": 15, "evidence": ["playground/runs/research-runboard/candidate-a/src/App.test.tsx", "playground/runs/research-runboard/candidate-a/scripts/mobile-check.mjs", "playground/evaluation/command-results/product-verification.json"], "deduction": "Behavioral unit coverage is strong, but the mobile check is outside the package scripts and does not enforce owner/timing retention; no automated keyboard-focus or optional-metadata cases."}
+      }
+    },
+    "candidate-b": {
+      "score": 67.5,
+      "dimensions": {
+        "acceptance": {
+          "score": 35,
+          "maximum": 35,
+          "criteria": [
+            {"id": "RR-01", "score": 7, "maximum": 7, "evidence": ["playground/runs/research-runboard/candidate-b/src/data.ts", "playground/runs/research-runboard/candidate-b/src/App.test.tsx"], "deduction": null},
+            {"id": "RR-02", "score": 6, "maximum": 6, "evidence": ["playground/runs/research-runboard/candidate-b/src/data.ts", "playground/evaluation/command-results/product-verification.json"], "deduction": null},
+            {"id": "RR-03", "score": 5, "maximum": 5, "evidence": ["playground/runs/research-runboard/candidate-b/src/App.tsx", "playground/runs/research-runboard/candidate-b/src/App.test.tsx"], "deduction": null},
+            {"id": "RR-04", "score": 5, "maximum": 5, "evidence": ["playground/runs/research-runboard/candidate-b/src/App.tsx", "playground/evaluation/command-results/product-verification.json"], "deduction": null},
+            {"id": "RR-05", "score": 5, "maximum": 5, "evidence": ["playground/evaluation/screenshots/research-runboard/candidate-b-1440x900.png", "playground/evaluation/screenshots/research-runboard/candidate-b-390x844.png"], "deduction": null},
+            {"id": "RR-06", "score": 4, "maximum": 4, "evidence": ["playground/runs/research-runboard/candidate-b/src/App.tsx", "playground/runs/research-runboard/candidate-b/src/styles.css"], "deduction": null},
+            {"id": "RR-07", "score": 3, "maximum": 3, "evidence": ["playground/runs/research-runboard/candidate-b/src/App.test.tsx", "playground/runs/research-runboard/candidate-b/tests/mobile-layout.spec.ts", "playground/evaluation/command-results/product-verification.json"], "deduction": null}
+          ]
+        },
+        "robustness": {"score": 9, "maximum": 10, "evidence": ["playground/runs/research-runboard/candidate-b/src/data.ts", "playground/runs/research-runboard/candidate-b/src/App.tsx"], "deduction": "Search normalization and synchronous derived state are robust; optional-metadata fallbacks and rapid filter sequences are not explicitly exercised."},
+        "ux": {"score": 9.5, "maximum": 10, "evidence": ["playground/evaluation/screenshots/research-runboard/candidate-b-1440x900.png", "playground/evaluation/screenshots/research-runboard/candidate-b-390x844.png"], "deduction": "Serious-tool hierarchy, failure prominence, and mobile card context are excellent; the ten-card mobile page is necessarily long."},
+        "test_quality": {"score": 14, "maximum": 15, "evidence": ["playground/runs/research-runboard/candidate-b/src/App.test.tsx", "playground/runs/research-runboard/candidate-b/tests/mobile-layout.spec.ts", "playground/evaluation/command-results/product-verification.json"], "deduction": "Strong ordering, field-search, combined filtering, empty-state, retry, semantic, and mobile layout coverage; mixed-case/space normalization and actual keyboard focus are not asserted."}
+      }
+    }
+  }
+}

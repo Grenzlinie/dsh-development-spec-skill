@@ -1,0 +1,62 @@
+{
+  "case": "research-runboard",
+  "maximum": 100,
+  "candidates": {
+    "candidate-a": {
+      "product_score": 60.0,
+      "process_score": 13.0,
+      "total_score": 73.0,
+      "first_pass_failed_acceptance": 3,
+      "final_failed_acceptance": 0,
+      "process": {
+        "spec_traceability": {
+          "score": 4.0,
+          "maximum": 15,
+          "evidence": ["playground/runs/research-runboard/candidate-a/evidence/hidden-first-pass.json", "playground/runs/research-runboard/candidate-a/evidence/final.json", "playground/runs/research-runboard/candidate-a/HANDOFF.md"],
+          "deduction": "Repair evidence maps three reported criteria to concrete changes, but there is no candidate-owned approved product record, decision boundary, alternatives, non-goals, or durable criterion-to-source/test map."
+        },
+        "architecture_docs_consistency": {
+          "score": 4.5,
+          "maximum": 10,
+          "evidence": ["playground/runs/research-runboard/candidate-a/HANDOFF.md", "playground/runs/research-runboard/candidate-a/src/App.tsx", "playground/runs/research-runboard/candidate-a/src/data.ts"],
+          "deduction": "The handoff broadly matches the final implementation, but there is no current architecture/development/testing authority. The handoff calls the app responsive without surfacing the mobile list's omitted owner/timing/environment context."
+        },
+        "reproducible_handoff": {
+          "score": 4.5,
+          "maximum": 5,
+          "evidence": ["playground/runs/research-runboard/candidate-a/HANDOFF.md", "playground/evaluation/command-results/product-verification.json"],
+          "deduction": "Install, test, build, run, preview, mobile-check, and limitations are usable and reproduced; the mobile check is optional and outside package scripts."
+        }
+      },
+      "product_detail": "playground/evaluation/product-scorecards/research-runboard.json"
+    },
+    "candidate-b": {
+      "product_score": 67.5,
+      "process_score": 29.5,
+      "total_score": 97.0,
+      "first_pass_failed_acceptance": 0,
+      "final_failed_acceptance": 0,
+      "process": {
+        "spec_traceability": {
+          "score": 15.0,
+          "maximum": 15,
+          "evidence": ["playground/runs/research-runboard/candidate-b/.agents/notes/implemented/feature/2026-08-14-research-runboard.md", "playground/runs/research-runboard/candidate-b/evidence/first-pass.json", "playground/runs/research-runboard/candidate-b/evidence/final.json"],
+          "deduction": null
+        },
+        "architecture_docs_consistency": {
+          "score": 9.5,
+          "maximum": 10,
+          "evidence": ["playground/runs/research-runboard/candidate-b/docs/architecture.md", "playground/runs/research-runboard/candidate-b/docs/development.md", "playground/runs/research-runboard/candidate-b/docs/testing.md", "playground/runs/research-runboard/candidate-b/.agents/spec-driven-development.json", "playground/evaluation/command-results/process-verification.json"],
+          "deduction": "Current docs, code, tests, and implemented decision agree. The configured governance command set does not itself include the load-bearing mobile layout test, although the testing doc, note, handoff, and evaluator run cover it."
+        },
+        "reproducible_handoff": {
+          "score": 5.0,
+          "maximum": 5,
+          "evidence": ["playground/runs/research-runboard/candidate-b/HANDOFF.md", "playground/evaluation/command-results/process-verification.json", "playground/evaluation/command-results/product-verification.json"],
+          "deduction": null
+        }
+      },
+      "product_detail": "playground/evaluation/product-scorecards/research-runboard.json"
+    }
+  }
+}

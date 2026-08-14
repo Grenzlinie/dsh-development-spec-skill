@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "pass": "first-pass",
+  "completed_at": "2026-08-14T17:05:00+08:00",
+  "product_approval": {
+    "status": "approved",
+    "approver": "product_owner",
+    "date": "2026-08-14",
+    "rounds": 3
+  },
+  "checks": [
+    {
+      "command": "npm install",
+      "status": "pass",
+      "result": "added 53 packages; audited 54 packages; 0 vulnerabilities",
+      "note": "The sandboxed attempt produced no output and was stopped after about 90 seconds; the approved network retry completed in 11 seconds."
+    },
+    {
+      "command": "npm run typecheck",
+      "status": "pass",
+      "result": "exit 0; tsc -b --pretty false"
+    },
+    {
+      "command": "npm test -- --run",
+      "status": "pass",
+      "result": "exit 0; 2 test files passed; 16 tests passed"
+    },
+    {
+      "command": "npm run build",
+      "status": "pass",
+      "result": "exit 0; Vite 7.3.6 transformed 7 modules; index HTML 3.99 kB, CSS 5.73 kB, JS 7.80 kB"
+    },
+    {
+      "command": "python3 ../../../../.codex/skills/spec-driven-development/scripts/specctl.py verify --root . --require-note",
+      "status": "pass",
+      "result": "governance_pass=true; configured typecheck, tests, and production-build all returned 0"
+    },
+    {
+      "command": "npm run preview -- --host 127.0.0.1",
+      "status": "pass",
+      "result": "Vite preview served http://127.0.0.1:4173/ and the assembled app loaded in the in-app browser",
+      "note": "The initial sandboxed listen returned EPERM; the approved local-listen retry succeeded and was stopped after review."
+    }
+  ],
+  "browser_review": {
+    "desktop_1280x800": {
+      "status": "pass",
+      "document": {
+        "scrollWidth": 1280,
+        "clientWidth": 1280,
+        "scrollHeight": 800,
+        "clientHeight": 800
+      },
+      "canvas_css": "805.34x506.55",
+      "canvas_visible": true,
+      "canvas_accessible_name": "Signal alignment scope showing a horizontal signal marker and central safe band",
+      "pause_visible": true,
+      "restart_visible": true,
+      "status_visible": true
+    },
+    "mobile_390x844": {
+      "status": "pass",
+      "document": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "scrollHeight": 844,
+        "clientHeight": 844
+      },
+      "canvas_css": "354x490.37",
+      "canvas_visible": true,
+      "pause_visible": true,
+      "restart_visible": true,
+      "score_lives_status_visible": true
+    },
+    "interaction": {
+      "status": "pass_with_one_unresolved_subcheck",
+      "pause_button": "pass; status became FEED HOLD — PAUSED and score stayed 000 across 350ms",
+      "keyboard_pause_resume": "pass; P paused and Escape resumed",
+      "enter_after_game_over": "pass; SIGNAL LOST at score 009 / zero lives reset to score 000 / three lives / CARRIER LOCKED",
+      "focus_loss": "unresolved in assembled browser; opening another in-app tab did not emit blur. The explicit blur handler and visible paused-state path are covered by static tests and review, but this is not claimed as an end-to-end blur check."
+    }
+  },
+  "acceptance": [
+    { "criterion": 1, "status": "pass", "evidence": "core and shell tests plus desktop/mobile review" },
+    { "criterion": 2, "status": "pass", "evidence": "deterministic replay, dt cap, and source-boundary tests" },
+    { "criterion": 3, "status": "pass", "evidence": "749ms/750ms, recenter, re-entry, and 800ms grace tests" },
+    { "criterion": 4, "status": "pass", "evidence": "active scoring and pause/game-over freeze tests" },
+    { "criterion": 5, "status": "pass", "evidence": "shell tests and assembled viewport review" },
+    { "criterion": 6, "status": "unresolved", "evidence": "P/Escape/button and visible pause passed; actual blur dispatch was not observed in the browser backend" },
+    { "criterion": 7, "status": "pass", "evidence": "clean restart unit test and assembled Enter restart" },
+    { "criterion": 8, "status": "pass", "evidence": "difficulty and viewport-state-isolation tests" },
+    { "criterion": 9, "status": "pass", "evidence": "exact desktop and 390x844 viewport measurements" },
+    { "criterion": 10, "status": "pass", "evidence": "install, typecheck, test, build, preview, and handoff commands" }
+  ],
+  "review": {
+    "status": "pass_with_documented_gap",
+    "scope": "Reviewed source, tests, docs, governance, browser presentation, failure paths, keyboard controls, responsive overflow, and generated artifacts against the approved note.",
+    "finding": "The in-app browser could not produce an observable blur event by opening another tab; retained as explicit unresolved evidence for hidden-runner verification."
+  }
+}

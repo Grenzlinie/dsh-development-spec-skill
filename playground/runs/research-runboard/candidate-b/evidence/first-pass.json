@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "case": "research-runboard",
+  "candidate": "candidate-b",
+  "pass": "first-pass",
+  "recorded_at": "2026-08-14T16:14:00+08:00",
+  "result": "pass",
+  "approval": {
+    "owner": "delegated product owner agent",
+    "date": "2026-08-14",
+    "scope": "Revised problem, goals, non-goals, exact five-state model, ordering, local Retry semantics, search and count meaning, 390px acceptance, and AC1-AC7",
+    "explicit": true
+  },
+  "checks": [
+    {
+      "command": "npm run typecheck",
+      "layer": "static",
+      "criteria": ["AC7"],
+      "exit_code": 0,
+      "status": "pass",
+      "result": "TypeScript project check completed with no diagnostics."
+    },
+    {
+      "command": "npm test -- --run",
+      "layer": "integration-jsdom",
+      "criteria": ["AC1", "AC2", "AC3", "AC4", "AC5", "AC6", "AC7"],
+      "exit_code": 0,
+      "status": "pass",
+      "result": "Vitest 4.1.10: 1 test file passed; 9 tests passed; 0 failed; 0 skipped; final run duration 844ms."
+    },
+    {
+      "command": "npm run test:layout",
+      "layer": "assembled-browser",
+      "criteria": ["AC5", "AC6"],
+      "exit_code": 0,
+      "status": "pass",
+      "result": "Playwright local Google Chrome at 390x844: 1/1 passed in 1.5s. Required status, owner, time, and failure details were visible; documentElement.scrollWidth and clientWidth both equaled 390."
+    },
+    {
+      "command": "npm run build",
+      "layer": "production-build",
+      "criteria": ["AC7"],
+      "exit_code": 0,
+      "status": "pass",
+      "result": "Vite 8.2.1 transformed 18 modules. Output before cleanup: index.html 0.55 kB (0.33 kB gzip), CSS 12.71 kB (3.65 kB gzip), JS 201.64 kB (63.37 kB gzip)."
+    },
+    {
+      "command": "python3 /Users/siyuliu/Desktop/dsh-development-spec-skill/.codex/skills/spec-driven-development/scripts/specctl.py check-note --root . --path .agents/notes/implemented/feature/2026-08-14-research-runboard.md --target implemented",
+      "layer": "governance-static",
+      "criteria": ["governance"],
+      "exit_code": 0,
+      "status": "pass",
+      "result": "Implemented Agent Note valid; errors empty."
+    },
+    {
+      "command": "python3 /Users/siyuliu/Desktop/dsh-development-spec-skill/.codex/skills/spec-driven-development/scripts/specctl.py verify --root . --require-note",
+      "layer": "governance",
+      "criteria": ["governance", "AC7"],
+      "exit_code": 0,
+      "status": "pass",
+      "result": "governance_pass true; pass true; errors empty; configured TypeScript, 9-test integration suite, and production build all returned 0."
+    },
+    {
+      "command": "manual review of src/App.tsx, src/styles.css, tests, docs, HANDOFF.md, and approved Agent Note",
+      "layer": "human-judgment-review",
+      "criteria": ["AC1", "AC2", "AC3", "AC4", "AC5", "AC6", "AC7"],
+      "exit_code": 0,
+      "status": "pass",
+      "result": "Code, tests, docs, and approved product meaning agree. Verified text status, visible focus, programmatic names, reduced-motion rule, failure/retry paths, and absence of unapproved scope."
+    }
+  ],
+  "repair_history": [
+    {
+      "command": "npm run typecheck",
+      "initial_status": "fail",
+      "diagnosis": "Missing Vite side-effect CSS declarations and Vite config imported defineConfig from the wrong package.",
+      "repair": "Added src/vite-env.d.ts and imported defineConfig from vitest/config."
+    },
+    {
+      "command": "npm test -- --run",
+      "initial_status": "fail",
+      "diagnosis": "Vitest collected the Playwright spec and Testing Library DOM was not cleaned between tests.",
+      "repair": "Scoped Vitest include to src unit/integration tests and added explicit afterEach cleanup; corrected one intentionally repeated text assertion."
+    },
+    {
+      "command": "npm run test:layout",
+      "initial_status": "environment-blocked",
+      "diagnosis": "Sandbox denied loopback binding; after permission, proxy-sensitive URL readiness polling timed out even though the server returned HTTP 200.",
+      "repair": "Ran with approved local-server/browser permission and changed Playwright webServer readiness to direct port probing; the assembled-path test then passed."
+    }
+  ],
+  "review_findings": [
+    {
+      "finding": "Remote font loading made the otherwise local demo network-dependent.",
+      "resolution": "Removed the Google Fonts import and used a local system font stack."
+    },
+    {
+      "finding": "No remaining mismatch between approved acceptance meaning and shipped source/tests/docs.",
+      "resolution": "No further repair required."
+    }
+  ],
+  "limitations": [
+    "Retry is an in-memory demonstration and resets on reload.",
+    "Seeded relative times are a labelled fixed snapshot, not a live clock.",
+    "The 390px browser check is not a complete screen-reader audit.",
+    "There is no backend, authentication, live polling, scheduler mutation, detail route, or log viewer."
+  ],
+  "delivery": {
+    "lockfile": "package-lock.json",
+    "handoff": "HANDOFF.md",
+    "implemented_note": ".agents/notes/implemented/feature/2026-08-14-research-runboard.md",
+    "generated_artifacts_removed": true
+  }
+}

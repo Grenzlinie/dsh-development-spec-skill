@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#081010" />
+    <meta name="description" content="Signal Drift — a keyboard-controlled signal alignment game." />
+    <title>Signal Drift // Deep Range Receiver</title>
+  </head>
+  <body>
+    <main class="console">
+      <header class="masthead">
+        <div>
+          <p class="eyebrow">DEEP RANGE RECEIVER · ARRAY 07</p>
+          <h1>SIGNAL <span>DRIFT</span></h1>
+        </div>
+        <div class="live-indicator"><i></i> LIVE FEED</div>
+      </header>
+
+      <section class="telemetry" aria-label="Mission telemetry">
+        <div class="readout"><span>SCORE</span><strong id="score">000000</strong></div>
+        <div class="readout"><span>RUN STATE</span><strong id="phase">ACTIVE</strong></div>
+        <div class="readout lives"><span>RECEIVERS</span><strong id="lives" aria-label="3 receivers remaining">◆ ◆ ◆</strong></div>
+        <div class="readout integrity"><span>INTEGRITY</span><div class="meter"><i id="integrity-bar"></i></div></div>
+      </section>
+
+      <section class="scope-shell">
+        <div class="scope-label top">CORRECTION SCOPE · CH 119.8</div>
+        <canvas id="game" aria-label="Signal alignment scope"></canvas>
+        <div class="scope-label bottom"><span>VECTOR INPUT: KEYBOARD</span><span id="status">CARRIER LOCKED</span></div>
+        <div id="overlay" class="overlay" hidden>
+          <p id="overlay-kicker">TRANSMISSION HELD</p>
+          <h2 id="overlay-title">PAUSED</h2>
+          <p id="overlay-copy">Press P or Escape to resume the carrier.</p>
+        </div>
+      </section>
+
+      <footer class="controls">
+        <p><kbd>WASD</kbd> / <kbd>ARROWS</kbd><span>trim receiver</span></p>
+        <p><kbd>P</kbd> / <kbd>ESC</kbd><span>pause / resume</span></p>
+        <div class="actions" aria-label="Game actions">
+          <button id="pause-button" type="button">PAUSE</button>
+          <button id="restart-button" type="button">RESTART</button>
+        </div>
+        <p class="instruction">Keep the bright carrier inside the amber lock ring. Noise compounds when the signal escapes.</p>
+      </footer>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

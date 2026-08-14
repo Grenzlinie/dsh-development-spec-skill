@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "case": "seat-hold-api",
+  "candidate": "candidate-b",
+  "phase": "standard-repair-final",
+  "completed_on": "2026-08-14",
+  "repairs": [
+    {
+      "criterion": "SH-01",
+      "result": "PASS",
+      "changes": "POST /holds now requires seat_id, customer_id, and idempotency_key in the JSON body. ttl_seconds defaults to 120 and is constrained to 1..900. The persisted fingerprint covers every effective create field."
+    },
+    {
+      "criterion": "SH-04",
+      "result": "PASS",
+      "changes": "Cancellation is DELETE /holds/{hold_id} with an empty 204 response and idempotent replay. The SQLite partial unique index and pre-insert query cover both active and confirmed rows, so confirmation permanently consumes the seat."
+    },
+    {
+      "criterion": "SH-06",
+      "result": "PASS",
+      "changes": "A restart test constructs a second FastAPI app/store over the same SQLite file and proves both hold retrieval and idempotent create replay survive restart; changed-payload replay still returns 409."
+    },
+    {
+      "criterion": "SH-07",
+      "result": "PASS",
+      "changes": "HTTP_API.md and HANDOFF.md now document the locked request body, TTL bounds/default, DELETE 204 cancellation, persistence, and permanent confirmed-seat consumption. An OpenAPI regression test asserts those request and cancellation schemas."
+    }
+  ],
+  "verification": [
+    {
+      "name": "fresh isolated environment",
+      "commands": [
+        "UV_CACHE_DIR=/tmp/seat-hold-candidate-b-final-cache uv venv --seed --python 3.13 /tmp/seat-hold-candidate-b-final-venv",
+        "UV_CACHE_DIR=/tmp/seat-hold-candidate-b-final-cache uv pip install --python /tmp/seat-hold-candidate-b-final-venv/bin/python -r requirements.lock",
+        "UV_CACHE_DIR=/tmp/seat-hold-candidate-b-final-cache uv pip install --python /tmp/seat-hold-candidate-b-final-venv/bin/python --no-deps -e ."
+      ],
+      "exit_code": 0,
+      "result": "CPython 3.13.3 environment created from scratch; 23 locked packages installed; seat-hold-api 0.1.0 built and installed from the repaired source."
+    },
+    {
+      "name": "final automated tests",
+      "command": "PYTHONDONTWRITEBYTECODE=1 /tmp/seat-hold-candidate-b-final-venv/bin/python -m pytest -p no:cacheprovider",
+      "exit_code": 0,
+      "result": "10 passed in 0.12s",
+      "coverage": [
+        "required body idempotency and customer identity",
+        "TTL default 120 and upper bound 900",
+        "idempotent DELETE cancellation with 204 empty response",
+        "confirmed seat remains consumed after expires_at",
+        "deterministic active expiry and release",
+        "eight concurrent attempts yield one success and seven conflicts",
+        "hold and idempotency replay persist across app/store restart",
+        "OpenAPI create and cancellation contract"
+      ]
+    },
+    {
+      "name": "production wheel build",
+      "command": "/tmp/seat-hold-candidate-b-final-venv/bin/python -m pip wheel --no-deps --no-build-isolation -w /tmp/seat-hold-candidate-b-final-dist .",
+      "exit_code": 0,
+      "result": "Successfully built seat_hold_api-0.1.0-py3-none-any.whl; sha256=201941aaa0628b032cb3a7b1a96999b952a7b0dbc9131b194d025a14b39587a9"
+    },
+    {
+      "name": "delivery hygiene",
+      "command": "/usr/bin/python3 -m json.tool evidence/final.json >/dev/null && find . \\( -name .venv -o -name __pycache__ -o -name .pytest_cache -o -name build -o -name dist -o -name '*.egg-info' -o -name '*.pyc' -o -name '*.db' -o -name '*.db-shm' -o -name '*.db-wal' -o -name .coverage \\) -print",
+      "exit_code": 0,
+      "result": "Final evidence parsed as JSON and the forbidden-artifact scan produced no output."
+    }
+  ],
+  "resolved_environment_attempt": {
+    "finding": "The first fresh uv venv --seed attempt could not reach the configured package index under sandbox networking.",
+    "resolution": "The same fresh-environment procedure was rerun with approved network access and completed successfully; no dependency version or test was skipped."
+  }
+}

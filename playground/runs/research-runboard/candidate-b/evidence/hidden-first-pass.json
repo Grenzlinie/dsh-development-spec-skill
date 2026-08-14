@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "case": "research-runboard",
+  "candidate": "candidate-b",
+  "oracle_sha256": "e41f09de7aa21218e7f778b27cb3340409a65915acbf94452567b36611638fbc",
+  "commands": [
+    {"command": "npm ci", "exit_code": 0},
+    {"command": "npm test -- --run", "exit_code": 0, "result": "1 file, 9 tests passed"},
+    {"command": "npm run build", "exit_code": 0, "result": "TypeScript and Vite production build passed"}
+  ],
+  "failed_acceptance": [],
+  "passed_observations": [
+    "Five-state priority ordering and newest-within-state order match the oracle.",
+    "Combined search and filtering, aggregate counts, empty state, and local Retry behavior are test-covered.",
+    "The recorded 390px real-Chrome check verifies no overflow and retained critical information.",
+    "Lockfile install, unit tests, typecheck, and production build are reproducible."
+  ]
+}

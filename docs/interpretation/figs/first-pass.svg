@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#10284a"/>
+  <text x="96" y="110" font-family="Arial, PingFang SC, sans-serif" font-size="54" font-weight="700" fill="#f8f1e3">生产代码写完第一轮以后</text>
+  <text x="96" y="164" font-family="Arial, PingFang SC, sans-serif" font-size="25" fill="#b8c8df">隐藏验收中仍未满足的条目数量，越低越好</text>
+  <g transform="translate(115,250)" font-family="Arial, PingFang SC, sans-serif">
+    <g>
+      <text x="170" y="0" font-size="30" fill="#d8e2ef" text-anchor="middle">Research Runboard</text>
+      <rect x="35" y="55" width="110" height="330" rx="16" fill="#7b8ba5"/>
+      <rect x="195" y="385" width="110" height="0" fill="#f06f5f"/>
+      <text x="90" y="35" font-size="50" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
+      <text x="250" y="365" font-size="50" font-weight="700" fill="#f06f5f" text-anchor="middle">0</text>
+      <text x="90" y="430" font-size="23" fill="#d8e2ef" text-anchor="middle">只给 idea</text>
+      <text x="250" y="430" font-size="23" fill="#d8e2ef" text-anchor="middle">使用 Skill</text>
+    </g>
+    <g transform="translate(480,0)">
+      <text x="170" y="0" font-size="30" fill="#d8e2ef" text-anchor="middle">Seat Hold API</text>
+      <rect x="35" y="-55" width="110" height="440" rx="16" fill="#7b8ba5"/>
+      <rect x="195" y="275" width="110" height="110" rx="16" fill="#f06f5f"/>
+      <text x="90" y="-75" font-size="50" font-weight="700" fill="#ffffff" text-anchor="middle">4</text>
+      <text x="250" y="255" font-size="50" font-weight="700" fill="#f06f5f" text-anchor="middle">1</text>
+      <text x="90" y="430" font-size="23" fill="#d8e2ef" text-anchor="middle">只给 idea</text>
+      <text x="250" y="430" font-size="23" fill="#d8e2ef" text-anchor="middle">使用 Skill</text>
+    </g>
+    <g transform="translate(960,0)">
+      <text x="170" y="0" font-size="30" fill="#d8e2ef" text-anchor="middle">Signal Drift</text>
+      <rect x="35" y="-165" width="110" height="550" rx="16" fill="#7b8ba5"/>
+      <rect x="195" y="385" width="110" height="0" fill="#f06f5f"/>
+      <text x="90" y="-185" font-size="50" font-weight="700" fill="#ffffff" text-anchor="middle">5</text>
+      <text x="250" y="365" font-size="50" font-weight="700" fill="#f06f5f" text-anchor="middle">0</text>
+      <text x="90" y="430" font-size="23" fill="#d8e2ef" text-anchor="middle">只给 idea</text>
+      <text x="250" y="430" font-size="23" fill="#d8e2ef" text-anchor="middle">使用 Skill</text>
+    </g>
+  </g>
+  <line x1="100" y1="635" x2="1500" y2="635" stroke="#5a718f" stroke-width="2"/>
+  <text x="800" y="735" font-family="Arial, PingFang SC, sans-serif" font-size="34" fill="#f8f1e3" text-anchor="middle">平均 4.00 条 → 0.33 条</text>
+  <text x="800" y="790" font-family="Arial, PingFang SC, sans-serif" font-size="24" fill="#b8c8df" text-anchor="middle">唯一一次 Skill 组首轮失败来自 Python 测试打包，没有改变产品合同</text>
+</svg>

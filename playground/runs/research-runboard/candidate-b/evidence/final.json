@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "case": "research-runboard",
+  "candidate": "candidate-b",
+  "stage": "standard-repair-opportunity-final",
+  "recorded_at": "2026-08-14T16:20:00+08:00",
+  "result": "pass",
+  "input": {
+    "source": "evidence/hidden-first-pass.json",
+    "failed_acceptance": [],
+    "passed_observations_count": 4
+  },
+  "review": {
+    "scope": "One finite review against the already approved product and existing acceptance criteria; no new feature or behavior scope.",
+    "command": "rg -n \"TODO|Pending explicit|To be recorded|Succeeded|360px\" . --glob '!package-lock.json' --glob '!evidence/hidden-first-pass.json' || true",
+    "result": "No stale placeholders, pending approval text, obsolete Succeeded label, or 360px acceptance wording found.",
+    "product_findings": [],
+    "production_changes": [],
+    "documentation_changes": [
+      "HANDOFF.md now points to final repair evidence.",
+      "The implemented Agent Note records the standard repair review and unchanged product decision."
+    ]
+  },
+  "checks": [
+    {
+      "command": "npm ci --no-audit --no-fund",
+      "exit_code": 0,
+      "status": "pass",
+      "result": "121 packages installed from package-lock.json."
+    },
+    {
+      "command": "npm run typecheck",
+      "exit_code": 0,
+      "status": "pass",
+      "result": "TypeScript project check completed with no diagnostics."
+    },
+    {
+      "command": "npm test -- --run",
+      "exit_code": 0,
+      "status": "pass",
+      "result": "Vitest 4.1.10: 1 file passed; 9 tests passed; 0 failed; 0 skipped; focused final run duration 856ms."
+    },
+    {
+      "command": "npm run test:layout",
+      "exit_code": 0,
+      "status": "pass",
+      "result": "Playwright local Google Chrome at 390x844: 1/1 passed in 2.4s; no page overflow and critical status, owner, time, and failure information retained."
+    },
+    {
+      "command": "npm run build",
+      "exit_code": 0,
+      "status": "pass",
+      "result": "Vite 8.2.1 transformed 18 modules. Output before cleanup: index.html 0.55 kB (0.33 kB gzip), CSS 12.71 kB (3.65 kB gzip), JS 201.64 kB (63.37 kB gzip)."
+    },
+    {
+      "command": "python3 /Users/siyuliu/Desktop/dsh-development-spec-skill/.codex/skills/spec-driven-development/scripts/specctl.py verify --root . --require-note",
+      "exit_code": 0,
+      "status": "pass",
+      "result": "governance_pass true; pass true; errors empty; configured typecheck, 9-test behavior suite, and production build each returned 0."
+    }
+  ],
+  "acceptance": {
+    "failed": [],
+    "unresolved": [],
+    "final_status": "pass"
+  },
+  "delivery": {
+    "product_scope_changed": false,
+    "lockfile_changed": false,
+    "generated_artifacts_removed": true
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "simulator": "fresh product-owner agent",
+  "policy": "Answered product behavior, priority, scope, and acceptance only; no implementation guidance or oracle/score/map disclosure.",
+  "cases": {
+    "research-runboard": {
+      "candidate-a": {"questions": 0, "approval": null},
+      "candidate-b": {"questions": 2, "approval_round": 2, "first_rejection": "Missing Attention, priority grouping, local Retry, exact search/filter/count/mobile/accessibility criteria."}
+    },
+    "seat-hold-api": {
+      "candidate-a": {"questions": 3, "approval_round": 3, "first_rejection": "Missing customer_id/body idempotency/TTL range, exact states/endpoints, confirmed occupancy, concurrency and transition semantics.", "second_rejection": "Missing restart persistence and incorrect repeated-cancel promise."},
+      "candidate-b": {"questions": 0, "approval": null}
+    },
+    "signal-drift": {
+      "candidate-a": {"questions": 0, "approval": null},
+      "candidate-b": {"questions": 3, "approval_round": 3, "first_rejection": "Wrong geometry, controls, scoring, damage/grace, determinism, responsive and accessibility rules.", "second_rejection": "Missing visible pause control and complete restart reset semantics."}
+    }
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "research-runboard": {"candidate-a": "baseline", "candidate-b": "treatment"},
+  "seat-hold-api": {"candidate-a": "treatment", "candidate-b": "baseline"},
+  "signal-drift": {"candidate-a": "baseline", "candidate-b": "treatment"}
+}

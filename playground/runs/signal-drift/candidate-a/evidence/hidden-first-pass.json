@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "case": "signal-drift",
+  "candidate": "candidate-a",
+  "oracle_sha256": "6af3754f9e4f530e7f21866ef2c428e2130d6d825e16ab402775138cc1969b1e",
+  "commands": [
+    {"command": "npm ci", "exit_code": 0},
+    {"command": "npm test", "exit_code": 0, "result": "1 file, 8 tests passed"},
+    {"command": "npm run build", "exit_code": 0, "result": "TypeScript check and Vite production build passed"}
+  ],
+  "failed_acceptance": [
+    {
+      "criterion": "SD-02",
+      "finding": "The core uses FAILURE_TIME=1.35 seconds rather than 750ms and has no 800ms post-damage grace state, so frame gaps can begin the next damage window immediately."
+    },
+    {
+      "criterion": "SD-03",
+      "finding": "Score increments on every fixed simulation step, multiplied by streak, rather than one point per survived active second."
+    },
+    {
+      "criterion": "SD-04",
+      "finding": "The shipped controls use Space and R, not P/Escape and game-over Enter; there are no visible Pause/Resume or Restart buttons. The blur handler clears held input but does not pause the game."
+    },
+    {
+      "criterion": "SD-05",
+      "finding": "stepGame accepts arbitrary dt without clamping an individual step to 100ms, and the tests do not cover the required clamp or post-damage grace lifecycle."
+    },
+    {
+      "criterion": "SD-06",
+      "finding": "No assembled desktop/mobile browser check was executed, so 390x844 overflow and load-bearing text outside the canvas lack runtime evidence."
+    }
+  ],
+  "passed_observations": [
+    "The state engine is DOM-free, seeded, deterministic for equal inputs, and immutable.",
+    "Keyboard steering, pause freeze, recenter, game-over, unit tests, and production build work under the candidate's own rules.",
+    "Fresh lockfile install, eight tests, and build are reproducible."
+  ]
+}

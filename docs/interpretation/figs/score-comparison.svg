@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f7f3ea"/>
+  <text x="96" y="105" font-family="Arial, PingFang SC, sans-serif" font-size="54" font-weight="700" fill="#10284a">三组配对实验的盲评总分</text>
+  <text x="96" y="158" font-family="Arial, PingFang SC, sans-serif" font-size="25" fill="#58677a">同类 Agent，相同 idea、资源与一次 repair，满分 100</text>
+  <g font-family="Arial, PingFang SC, sans-serif" font-size="27" fill="#26384f">
+    <text x="96" y="305">Research Runboard</text>
+    <text x="96" y="505">Seat Hold API</text>
+    <text x="96" y="705">Signal Drift</text>
+  </g>
+  <g stroke="#d8d1c4" stroke-width="2">
+    <line x1="470" y1="215" x2="1470" y2="215"/>
+    <line x1="470" y1="815" x2="1470" y2="815"/>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="20" fill="#7b8490" text-anchor="middle">
+    <text x="470" y="850">0</text><text x="720" y="850">25</text><text x="970" y="850">50</text><text x="1220" y="850">75</text><text x="1470" y="850">100</text>
+  </g>
+  <g stroke="#dfd9ce" stroke-width="1">
+    <line x1="720" y1="215" x2="720" y2="815"/><line x1="970" y1="215" x2="970" y2="815"/><line x1="1220" y1="215" x2="1220" y2="815"/><line x1="1470" y1="215" x2="1470" y2="815"/>
+  </g>
+  <g>
+    <rect x="470" y="250" width="730" height="55" rx="8" fill="#7b8ba5"/><rect x="470" y="320" width="970" height="55" rx="8" fill="#2459a6"/>
+    <rect x="470" y="450" width="750" height="55" rx="8" fill="#7b8ba5"/><rect x="470" y="520" width="990" height="55" rx="8" fill="#2459a6"/>
+    <rect x="470" y="650" width="800" height="55" rx="8" fill="#7b8ba5"/><rect x="470" y="720" width="985" height="55" rx="8" fill="#2459a6"/>
+  </g>
+  <g font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#ffffff" text-anchor="end">
+    <text x="1180" y="288">73</text><text x="1420" y="358">97</text>
+    <text x="1200" y="488">75</text><text x="1440" y="558">99</text>
+    <text x="1250" y="688">80</text><text x="1435" y="758">98.5</text>
+  </g>
+  <g font-family="Arial, PingFang SC, sans-serif" font-size="21" fill="#ffffff">
+    <text x="490" y="287">只给 idea</text><text x="490" y="357">使用 Skill</text>
+    <text x="490" y="487">只给 idea</text><text x="490" y="557">使用 Skill</text>
+    <text x="490" y="687">只给 idea</text><text x="490" y="757">使用 Skill</text>
+  </g>
+  <rect x="1220" y="76" width="250" height="88" rx="18" fill="#f06f5f"/>
+  <text x="1345" y="113" font-family="Arial, PingFang SC, sans-serif" font-size="23" fill="#fff" text-anchor="middle">平均提升</text>
+  <text x="1345" y="145" font-family="Arial, sans-serif" font-size="31" font-weight="700" fill="#fff" text-anchor="middle">+22.17</text>
+</svg>

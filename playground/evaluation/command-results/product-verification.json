@@ -1,0 +1,72 @@
+{
+  "evaluated_at": "2026-08-14T17:40:00+08:00",
+  "blind_labels_only": true,
+  "fresh_install": {
+    "research-runboard/candidate-a": {"command": "npm ci --ignore-scripts", "result": "pass", "packages_added": 178},
+    "research-runboard/candidate-b": {"command": "npm ci --ignore-scripts", "result": "pass", "packages_added": 121},
+    "signal-drift/candidate-a": {"command": "npm ci --ignore-scripts", "result": "pass", "packages_added": 54},
+    "signal-drift/candidate-b": {"command": "npm ci --ignore-scripts", "result": "pass", "packages_added": 54},
+    "seat-hold-api/candidate-a": {
+      "command": "UV_CACHE_DIR=/tmp/dsh-eval-uv-cache uv sync --frozen --all-groups",
+      "result": "pass_after_network_approval",
+      "initial_blocker": "Failed to initialize the default uv cache under the sandbox, followed by network Operation not permitted when using /tmp cache."
+    },
+    "seat-hold-api/candidate-b": {
+      "commands": [
+        "python3.13 -m venv --clear .venv",
+        ".venv/bin/python -m pip install -r requirements.lock",
+        ".venv/bin/python -m pip install --no-deps -e ."
+      ],
+      "result": "pass_after_network_approval",
+      "environment_note": "System python3 was 3.9.6, below the documented Python 3.11+ prerequisite; /opt/homebrew/bin/python3.13 was used."
+    }
+  },
+  "tests": {
+    "research-runboard/candidate-a": {"command": "npm test -- --run", "result": "pass", "tests": 8},
+    "research-runboard/candidate-b": {"command": "npm test -- --run", "result": "pass", "tests": 9},
+    "signal-drift/candidate-a": {"command": "npm test -- --run", "result": "pass", "tests": 10},
+    "signal-drift/candidate-b": {"command": "npm test -- --run", "result": "pass", "tests": 16},
+    "seat-hold-api/candidate-a": {"command": "UV_CACHE_DIR=/tmp/dsh-eval-uv-cache uv run --frozen --all-groups pytest -q", "result": "pass", "tests": 13},
+    "seat-hold-api/candidate-b": {"command": ".venv/bin/python -m pytest -q", "result": "pass", "tests": 10}
+  },
+  "builds": {
+    "research-runboard/candidate-a": {"command": "npm run build", "result": "pass"},
+    "research-runboard/candidate-b": {"command": "npm run build", "result": "pass"},
+    "signal-drift/candidate-a": {"command": "npm run build", "result": "pass"},
+    "signal-drift/candidate-b": {"command": "npm run build", "result": "pass"},
+    "seat-hold-api/candidate-a": {"command": ".venv/bin/python -m build", "result": "pass_after_network_approval"},
+    "seat-hold-api/candidate-b": {"command": ".venv/bin/python -m pip wheel --no-deps --no-build-isolation -w dist .", "result": "pass"}
+  },
+  "browser": {
+    "preview_initial_blocker": "listen EPERM: operation not permitted 127.0.0.1:<port>",
+    "preview_resolution": "Started Vite preview servers on controlled localhost ports 4171-4174 after approval.",
+    "research-runboard/candidate-a": {
+      "viewports": ["1440x900", "390x844"],
+      "page_horizontal_overflow": false,
+      "mixed_case_trimmed_search": "pass; Priya returned 2 runs",
+      "retry": "pass; failed run changed to Queued",
+      "visual_issue": "Mobile runboard contains an internal horizontal scrollbar and compact rows omit owner, environment, and timing from the list view."
+    },
+    "research-runboard/candidate-b": {
+      "viewports": ["1440x900", "390x844"],
+      "page_horizontal_overflow": false,
+      "mixed_case_trimmed_search": "pass; Ari Okafor returned 2 runs",
+      "retry": "pass; failed count 2->1 and queued count 1->2",
+      "mobile_context": "owner, method/model, compute, timing, status, failure reason, and retry remain visible"
+    },
+    "signal-drift/candidate-a": {
+      "viewports": ["1440x900", "390x844"],
+      "horizontal_overflow": false,
+      "vertical_overflow": false,
+      "pause_button": "pass; overlay visible and score frozen",
+      "keyboard": "P paused and Escape resumed"
+    },
+    "signal-drift/candidate-b": {
+      "viewports": ["1440x900", "390x844"],
+      "horizontal_overflow": false,
+      "vertical_overflow": false,
+      "pause_button": "pass; canvas overlay/status visible and score frozen",
+      "keyboard": "P resumed and Escape paused"
+    }
+  }
+}

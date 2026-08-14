@@ -1,0 +1,49 @@
+{
+  "case": "signal-drift",
+  "stage": "product",
+  "maximum": 70,
+  "candidates": {
+    "candidate-a": {
+      "score": 65.0,
+      "dimensions": {
+        "acceptance": {
+          "score": 35,
+          "maximum": 35,
+          "criteria": [
+            {"id": "SD-01", "score": 6, "maximum": 6, "evidence": ["playground/runs/signal-drift/candidate-a/src/game.ts", "playground/runs/signal-drift/candidate-a/tests/game.test.ts"], "deduction": null},
+            {"id": "SD-02", "score": 6, "maximum": 6, "evidence": ["playground/runs/signal-drift/candidate-a/src/game.ts", "playground/runs/signal-drift/candidate-a/tests/game.test.ts"], "deduction": null},
+            {"id": "SD-03", "score": 5, "maximum": 5, "evidence": ["playground/runs/signal-drift/candidate-a/tests/game.test.ts", "playground/evaluation/command-results/product-verification.json"], "deduction": null},
+            {"id": "SD-04", "score": 5, "maximum": 5, "evidence": ["playground/runs/signal-drift/candidate-a/src/main.ts", "playground/evaluation/screenshots/signal-drift/candidate-a-390x844-paused.png", "playground/evaluation/command-results/product-verification.json"], "deduction": null},
+            {"id": "SD-05", "score": 5, "maximum": 5, "evidence": ["playground/runs/signal-drift/candidate-a/src/game.ts", "playground/runs/signal-drift/candidate-a/tests/game.test.ts"], "deduction": null},
+            {"id": "SD-06", "score": 5, "maximum": 5, "evidence": ["playground/evaluation/screenshots/signal-drift/candidate-a-1440x900.png", "playground/evaluation/screenshots/signal-drift/candidate-a-390x844.png", "playground/evaluation/command-results/product-verification.json"], "deduction": null},
+            {"id": "SD-07", "score": 3, "maximum": 3, "evidence": ["playground/runs/signal-drift/candidate-a/HANDOFF.md", "playground/evaluation/command-results/product-verification.json"], "deduction": null}
+          ]
+        },
+        "robustness": {"score": 10, "maximum": 10, "evidence": ["playground/runs/signal-drift/candidate-a/src/main.ts", "playground/runs/signal-drift/candidate-a/src/game.ts", "playground/runs/signal-drift/candidate-a/tests/game.test.ts"], "deduction": null},
+        "game_review": {"score": 6.5, "maximum": 10, "evidence": ["playground/evaluation/screenshots/signal-drift/candidate-a-1440x900.png", "playground/runs/signal-drift/candidate-a/src/game.ts", "playground/runs/signal-drift/candidate-a/HANDOFF.md"], "deduction": "Presentation and feedback are intentional, but the product changes the locked horizontal safe-band game into a two-dimensional moving-target amber ring with vertical steering. The goal is understandable yet materially less faithful to the specified game feel."},
+        "test_quality": {"score": 13.5, "maximum": 15, "evidence": ["playground/runs/signal-drift/candidate-a/tests/game.test.ts", "playground/runs/signal-drift/candidate-a/scripts/browser-check.mjs", "playground/evaluation/command-results/product-verification.json"], "deduction": "Core determinism and lifecycle edges are strong; browser shell, blur behavior, restart wiring, and responsive assertions are not part of the normal automated test command."}
+      }
+    },
+    "candidate-b": {
+      "score": 69.0,
+      "dimensions": {
+        "acceptance": {
+          "score": 35,
+          "maximum": 35,
+          "criteria": [
+            {"id": "SD-01", "score": 6, "maximum": 6, "evidence": ["playground/runs/signal-drift/candidate-b/src/core.ts", "playground/runs/signal-drift/candidate-b/tests/core.test.ts"], "deduction": null},
+            {"id": "SD-02", "score": 6, "maximum": 6, "evidence": ["playground/runs/signal-drift/candidate-b/src/core.ts", "playground/runs/signal-drift/candidate-b/tests/core.test.ts"], "deduction": null},
+            {"id": "SD-03", "score": 5, "maximum": 5, "evidence": ["playground/runs/signal-drift/candidate-b/tests/core.test.ts", "playground/evaluation/command-results/product-verification.json"], "deduction": null},
+            {"id": "SD-04", "score": 5, "maximum": 5, "evidence": ["playground/runs/signal-drift/candidate-b/src/main.ts", "playground/evaluation/screenshots/signal-drift/candidate-b-390x844-paused.png", "playground/evaluation/command-results/product-verification.json"], "deduction": null},
+            {"id": "SD-05", "score": 5, "maximum": 5, "evidence": ["playground/runs/signal-drift/candidate-b/src/core.ts", "playground/runs/signal-drift/candidate-b/tests/core.test.ts", "playground/runs/signal-drift/candidate-b/tests/shell.test.ts"], "deduction": null},
+            {"id": "SD-06", "score": 5, "maximum": 5, "evidence": ["playground/evaluation/screenshots/signal-drift/candidate-b-1440x900.png", "playground/evaluation/screenshots/signal-drift/candidate-b-390x844.png", "playground/evaluation/command-results/product-verification.json"], "deduction": null},
+            {"id": "SD-07", "score": 3, "maximum": 3, "evidence": ["playground/runs/signal-drift/candidate-b/HANDOFF.md", "playground/evaluation/command-results/product-verification.json"], "deduction": null}
+          ]
+        },
+        "robustness": {"score": 10, "maximum": 10, "evidence": ["playground/runs/signal-drift/candidate-b/src/main.ts", "playground/runs/signal-drift/candidate-b/src/core.ts", "playground/runs/signal-drift/candidate-b/tests/core.test.ts"], "deduction": null},
+        "game_review": {"score": 9.5, "maximum": 10, "evidence": ["playground/evaluation/screenshots/signal-drift/candidate-b-1440x900.png", "playground/evaluation/screenshots/signal-drift/candidate-b-390x844.png", "playground/evaluation/screenshots/signal-drift/candidate-b-390x844-paused.png"], "deduction": "The horizontal marker, central band, exposure meter, and pause/game-over overlay make the intended danger legible; no audio or tactile feedback is present."},
+        "test_quality": {"score": 14.5, "maximum": 15, "evidence": ["playground/runs/signal-drift/candidate-b/tests/core.test.ts", "playground/runs/signal-drift/candidate-b/tests/shell.test.ts", "playground/evaluation/command-results/product-verification.json"], "deduction": "Excellent exact-boundary, grace, restart, determinism, DOM-free, shell, and viewport-math coverage; assembled blur remains source/static checked rather than automated in a real browser."}
+      }
+    }
+  }
+}

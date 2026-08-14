@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "case": "seat-hold-api",
+  "candidate": "candidate-b",
+  "oracle_sha256": "77011f410bcd912cfef9767200040f5b2c32fc6f4ca115d8b75f62e5bae5dae4",
+  "commands": [
+    {"command": "UV_CACHE_DIR=/tmp/dsh-sdd-uv-cache uv run --with-requirements requirements.lock --with-editable . pytest -q -p no:cacheprovider", "exit_code": 0, "result": "7 tests passed in a fresh locked environment."}
+  ],
+  "failed_acceptance": [
+    {
+      "criterion": "SH-01",
+      "finding": "POST /holds omits required customer_id, puts idempotency in a header rather than the approved request body, and accepts TTL through 86400 instead of 1..900 with default 120."
+    },
+    {
+      "criterion": "SH-04",
+      "finding": "Cancellation is POST /holds/{id}/cancel with a 200 representation instead of DELETE /holds/{id} with 204. The SQLite uniqueness and create query cover only active rows, so confirming a hold releases the seat even though confirmation must permanently consume it."
+    },
+    {
+      "criterion": "SH-06",
+      "finding": "The source appears persistent, but the seven-test suite does not restart the app/store against the same database to prove hold and idempotency outcomes survive restart."
+    },
+    {
+      "criterion": "SH-07",
+      "finding": "HTTP_API.md is clear but documents a product contract that conflicts with the locked acceptance contract in SH-01 and SH-04."
+    }
+  ],
+  "passed_observations": [
+    "Fresh dependency install and seven tests pass.",
+    "Injected clock expiry releases active seats exactly at expiry.",
+    "Eight concurrent creates produce one 201 and seven 409 responses.",
+    "Idempotency replay is stable for the candidate's own request fields."
+  ]
+}

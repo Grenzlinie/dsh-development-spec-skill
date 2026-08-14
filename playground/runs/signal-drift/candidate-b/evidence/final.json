@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "case": "signal-drift",
+  "candidate": "candidate-b",
+  "stage": "standard-repair-final",
+  "completed_at": "2026-08-14T17:12:00+08:00",
+  "repair_scope": {
+    "failed_acceptance": [],
+    "product_changes": [],
+    "review_result": "No product or verification failure required repair. Limited review found source, tests, docs, and the implemented Agent Note consistent with the approved behavior.",
+    "scope_expansion": false
+  },
+  "commands": [
+    {
+      "command": "npm ci",
+      "exit_code": 0,
+      "result": "added 54 packages from package-lock.json in 702ms"
+    },
+    {
+      "command": "npm run typecheck",
+      "exit_code": 0,
+      "result": "tsc -b --pretty false"
+    },
+    {
+      "command": "npm test -- --run",
+      "exit_code": 0,
+      "result": "2 test files passed; 16 tests passed"
+    },
+    {
+      "command": "npm run build",
+      "exit_code": 0,
+      "result": "Vite 7.3.6 transformed 7 modules; production HTML, CSS, and JavaScript emitted successfully"
+    },
+    {
+      "command": "python3 ../../../../.codex/skills/spec-driven-development/scripts/specctl.py verify --root . --require-note",
+      "exit_code": 0,
+      "result": "pass=true; governance_pass=true; configured typecheck, tests, and production-build returned 0"
+    }
+  ],
+  "review": {
+    "status": "pass_with_environment_evidence_gap",
+    "checked": [
+      "window blur is wired to setPaused(state, true), clears held input, updates visible status, and redraws",
+      "P, Escape, and the visible control use the same pause state model",
+      "restartGame constructs the deterministic clean initial state",
+      "shell and core tests remain aligned with the implemented decision record",
+      "first-pass desktop and 390x844 measurements remain preserved in evidence/first-pass.json"
+    ]
+  },
+  "acceptance": {
+    "failed": [],
+    "passed": [1, 2, 3, 4, 5, 7, 8, 9, 10],
+    "criterion_6": {
+      "status": "unresolved_environment_evidence",
+      "verified_parts": "P/Escape/button pause and visible freeze passed; source and static tests cover the blur handler.",
+      "unresolved_part": "The available browser backend did not naturally emit blur when another tab opened. No end-to-end blur result is claimed.",
+      "repair_decision": "Retained unresolved rather than introducing a browser framework or changing production architecture when no acceptance failure was reported."
+    }
+  },
+  "final_status": "complete_with_documented_blur_environment_gap"
+}

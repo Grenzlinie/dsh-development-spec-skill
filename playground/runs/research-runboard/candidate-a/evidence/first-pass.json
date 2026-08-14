@@ -1,0 +1,23 @@
+{
+  "case": "research-runboard",
+  "candidate": "candidate-a",
+  "pass": "first-pass",
+  "timestamp": "2026-08-14T16:05:08+08:00",
+  "checks": [
+    {
+      "command": "npm test",
+      "exitCode": 0,
+      "result": "Test Files  1 passed (1)\nTests  5 passed (5)\nDuration  716ms"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "result": "tsc -b && vite build\nvite v5.4.21 building for production...\n1582 modules transformed\ndist/index.html 0.54 kB (gzip 0.33 kB)\ndist/assets/index-BtgkA08V.css 13.53 kB (gzip 4.01 kB)\ndist/assets/index-E9_HJB-B.js 161.13 kB (gzip 50.83 kB)\nBuilt successfully in 618ms"
+    }
+  ],
+  "cleanupRequired": ["node_modules", "dist", "coverage", "caches"],
+  "notes": [
+    "Tests cover initial seeded data, status filtering, metadata search, run-detail drawer, and empty-state recovery.",
+    "The production build check includes TypeScript project compilation."
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "case": "research-runboard",
+  "candidate": "candidate-a",
+  "repair": "standard-single-repair",
+  "timestamp": "2026-08-14T16:22:35+08:00",
+  "acceptance_repairs": [
+    {
+      "criterion": "RR-01",
+      "result": "PASS",
+      "evidence": "The seeded model now includes Attention; explicit priority sorting renders Failed then Attention before Running, Queued, and Completed runs."
+    },
+    {
+      "criterion": "RR-04",
+      "result": "PASS",
+      "evidence": "Failed and Attention rows show issue text inline and visible Retry controls. Retry updates that run to Queued with a new local timestamp and scheduler note."
+    },
+    {
+      "criterion": "RR-07",
+      "result": "PASS",
+      "evidence": "The suite now has dedicated tests for priority ordering, combined search plus status filtering, and retry state change."
+    }
+  ],
+  "commands": [
+    {
+      "command": "npm ci",
+      "exit_code": 0,
+      "result": "added 178 packages in 2s"
+    },
+    {
+      "command": "npm test",
+      "exit_code": 0,
+      "result": "Test Files 1 passed (1); Tests 8 passed (8); Duration 892ms"
+    },
+    {
+      "command": "npm run build",
+      "exit_code": 0,
+      "result": "TypeScript project build passed; Vite v5.4.21 transformed 1582 modules; output sizes: HTML 0.54 kB, CSS 14.62 kB, JS 163.03 kB; built in 642ms"
+    },
+    {
+      "command": "node scripts/mobile-check.mjs",
+      "exit_code": 0,
+      "result": "390x844 passed; clientWidth=390; scrollWidth=390; retryButtons=2; hasAttention=true; firstRun=Ligand docking screen; visibleIssue=true; retryChanged=true"
+    }
+  ],
+  "unresolved": [],
+  "cleanup_required": ["node_modules", "dist", "coverage", "caches", "browser profiles"]
+}

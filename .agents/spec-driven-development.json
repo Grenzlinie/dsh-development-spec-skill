@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "require_claude_symlink": true,
+  "verification_commands": [
+    {
+      "name": "specctl-unittest",
+      "command": ["python3", "-m", "unittest", "discover", "-s", "tests", "-v"]
+    },
+    {
+      "name": "markdown-links",
+      "command": ["python3", "scripts/check_markdown_links.py", "."]
+    },
+    {
+      "name": "experiment-integrity",
+      "command": ["python3", "scripts/verify_experiment.py"]
+    },
+    {
+      "name": "publication-artifacts",
+      "command": ["python3", "scripts/verify_publication.py"]
+    }
+  ]
+}

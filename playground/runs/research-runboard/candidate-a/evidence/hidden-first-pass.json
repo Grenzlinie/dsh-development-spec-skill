@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "case": "research-runboard",
+  "candidate": "candidate-a",
+  "oracle_sha256": "e41f09de7aa21218e7f778b27cb3340409a65915acbf94452567b36611638fbc",
+  "commands": [
+    {"command": "npm ci", "exit_code": 0},
+    {"command": "npm test", "exit_code": 0, "result": "1 file, 5 tests passed"},
+    {"command": "npm run build", "exit_code": 0, "result": "TypeScript and Vite production build passed"},
+    {"command": "node /tmp/rr-browser-check.cjs", "exit_code": 0, "result": "390px clientWidth=390, scrollWidth=390"}
+  ],
+  "failed_acceptance": [
+    {
+      "criterion": "RR-01",
+      "finding": "The seeded model has four statuses and no Attention state. The first rendered run is Running, so failure and attention work are not grouped ahead of lower-priority states."
+    },
+    {
+      "criterion": "RR-04",
+      "finding": "Failed detail text exists only after opening a drawer and there is no visible Retry action or local retry state transition. The browser check found zero retry buttons."
+    },
+    {
+      "criterion": "RR-07",
+      "finding": "The five tests do not cover priority ordering, combined search plus status filtering, or retry state change."
+    }
+  ],
+  "passed_observations": [
+    "Case-insensitive metadata search and status filtering are implemented.",
+    "Summary totals and recoverable empty state are present.",
+    "The 390px page has no horizontal overflow.",
+    "Lockfile install, unit tests, and production build are reproducible."
+  ]
+}
