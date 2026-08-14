@@ -17,6 +17,18 @@
     {
       "name": "publication-artifacts",
       "command": ["python3", "scripts/verify_publication.py"]
+    },
+    {
+      "name": "dsh-skill-projection",
+      "command": ["python3", "scripts/sync_dsh_plugin.py", "--check"]
+    },
+    {
+      "name": "dsh-plugin-unit",
+      "command": ["node", "--test", "tests/dsh-plugin.test.mjs"]
+    },
+    {
+      "name": "dsh-package-boundary",
+      "command": ["python3", "scripts/verify_dsh_package.py"]
     }
   ]
 }
