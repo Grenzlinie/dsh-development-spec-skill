@@ -1,0 +1,12 @@
+{
+  "locked_at": "2026-08-14T00:00:00+08:00",
+  "oracles": {
+    "research-runboard": "e41f09de7aa21218e7f778b27cb3340409a65915acbf94452567b36611638fbc",
+    "seat-hold-api": "77011f410bcd912cfef9767200040f5b2c32fc6f4ca115d8b75f62e5bae5dae4",
+    "signal-drift": "6af3754f9e4f530e7f21866ef2c428e2130d6d825e16ab402775138cc1969b1e"
+  },
+  "algorithm": "sha256",
+  "condition_map_sha256": "58f04f52c4dbede40e6ecbba134f6c804526aab430d9bb1fc86bf2c67d6aefee",
+  "sealed_location_during_build": "/tmp/dsh-sdd-oracles",
+  "note": "Oracle bodies and the condition map are archived only after all builders finish."
+}

@@ -1,0 +1,44 @@
+{
+  "evaluated_at": "2026-08-14T17:48:00+08:00",
+  "blind_labels_only": true,
+  "first_pass_to_final_gaps": {
+    "research-runboard": {
+      "candidate-a": {"failed_acceptance": [3, 0], "unresolved_final": 0},
+      "candidate-b": {"failed_acceptance": [0, 0], "unresolved_final": 0}
+    },
+    "seat-hold-api": {
+      "candidate-a": {"failed_acceptance": [1, 0], "unresolved_final": 0},
+      "candidate-b": {
+        "failed_acceptance": [4, 0],
+        "unresolved_final": 0,
+        "evaluator_note": "Final evidence reports all four repaired, but independent product review still found the repeat-cancel semantic mismatch and representation naming/value drift."
+      }
+    },
+    "signal-drift": {
+      "candidate-a": {"failed_acceptance": [5, 0], "unresolved_final": 0},
+      "candidate-b": {"failed_acceptance": [0, 0], "unresolved_environment_subchecks": [1, 1]}
+    }
+  },
+  "governance_verification": {
+    "research-runboard/candidate-b": {
+      "command": "python3 /Users/siyuliu/Desktop/dsh-development-spec-skill/.codex/skills/spec-driven-development/scripts/specctl.py verify --root . --require-note",
+      "result": "pass; governance_pass=true; typecheck, 9 tests, and build returned 0"
+    },
+    "seat-hold-api/candidate-a": {
+      "command": ".venv/bin/python ../../../../.codex/skills/spec-driven-development/scripts/specctl.py verify --root . --require-note",
+      "initial_result": "tests and Ruff passed; isolated build failed because sandbox denied build dependency download",
+      "final_result": "pass after network approval; governance_pass=true; 13 tests, Ruff, wheel, and sdist returned 0"
+    },
+    "signal-drift/candidate-b": {
+      "command": "python3 ../../../../.codex/skills/spec-driven-development/scripts/specctl.py verify --root . --require-note",
+      "result": "pass; governance_pass=true; typecheck, 16 tests, and build returned 0"
+    }
+  },
+  "candidate_browser_command": {
+    "research-runboard/candidate-b": {
+      "command": "npm run test:layout",
+      "initial_result": "listen EPERM: operation not permitted 127.0.0.1:4173",
+      "final_result": "pass after localhost approval; 1/1 mobile-chrome test passed in 1.7s"
+    }
+  }
+}

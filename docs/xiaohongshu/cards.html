@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Spec Driven Development 小红书卡片</title>
+  <style>
+    *{box-sizing:border-box}html,body{margin:0;background:#111;font-family:Inter,"PingFang SC","Noto Sans CJK SC",sans-serif;color:#10284a}body{width:1080px;height:1440px;overflow:hidden}.card{display:none;position:relative;width:1080px;height:1440px;overflow:hidden;background:#f7f3ea;padding:92px 82px 76px}.card.active{display:flex;flex-direction:column}.kicker{font:700 25px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.11em;color:#2459a6;text-transform:uppercase}.title{margin:28px 0 0;font-size:84px;line-height:1.06;letter-spacing:-.055em;font-weight:730}.title.small{font-size:70px}.lead{margin:34px 0 0;max-width:850px;font-size:34px;line-height:1.48;color:#40526a}.footer{margin-top:auto;border-top:2px solid rgba(16,40,74,.25);padding-top:24px;display:flex;justify-content:space-between;font-size:22px;color:#5a6879}.accent{color:#f06f5f}.blue{color:#2459a6}.pill{display:inline-block;padding:12px 18px;border:2px solid currentColor;border-radius:999px;font-size:24px;font-weight:700}.hero{background:#071b3b;color:#fff;padding:0}.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,20,49,.05),rgba(5,20,49,.15) 42%,rgba(5,20,49,.94) 78%)}.hero-bg{position:absolute;width:100%;height:100%;object-fit:cover}.hero-copy{position:absolute;z-index:2;left:72px;right:72px;bottom:70px}.hero .kicker{color:#f3c6b8}.hero .title{font-size:79px;text-shadow:0 3px 28px rgba(0,0,0,.45)}.hero .lead{color:#dbe5f4;font-size:29px}.hero .footer{border-color:rgba(255,255,255,.25);color:#dbe5f4}.issue-list{margin:58px 0 0;display:grid;gap:26px}.issue{padding:28px 32px;background:#fff;border-left:10px solid #f06f5f;border-radius:8px;box-shadow:0 15px 42px rgba(16,40,74,.09)}.issue b{display:block;font-size:31px;margin-bottom:9px}.issue span{font-size:26px;line-height:1.4;color:#536277}.steps{margin-top:52px;display:grid;grid-template-columns:1fr 1fr;gap:22px}.step{min-height:138px;padding:24px 26px;background:#10284a;color:#fff;border-radius:16px}.step .n{font:700 20px/1 ui-monospace,monospace;color:#f3a897}.step b{display:block;font-size:30px;margin-top:16px}.owner{margin-top:32px;padding:28px 30px;background:#e7edf5;border-radius:16px;font-size:27px;line-height:1.5}.numbers{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:52px}.num{padding:31px 20px;background:#10284a;color:#fff;border-radius:16px;text-align:center}.num strong{display:block;font-size:57px;letter-spacing:-.04em}.num span{display:block;margin-top:12px;font-size:21px;color:#c7d4e5}.timeline{margin-top:46px;display:grid;gap:28px}.timeline-row{display:grid;grid-template-columns:90px 1fr;gap:24px;align-items:start}.timeline-row em{font-style:normal;font-size:25px;font-weight:800;color:#f06f5f}.timeline-row div{font-size:28px;line-height:1.45;border-bottom:1px solid #c9c2b6;padding-bottom:24px}.experiment-grid{margin-top:54px;display:grid;gap:22px}.exp{display:grid;grid-template-columns:130px 1fr 130px;align-items:center;padding:26px 30px;background:#fff;border:2px solid #d9d2c6;border-radius:16px}.exp .icon{font-size:54px}.exp b{font-size:30px}.exp small{display:block;margin-top:7px;font-size:21px;color:#687588}.exp .pair{font:700 22px/1.3 ui-monospace,monospace;color:#2459a6;text-align:right}.chart{width:100%;margin-top:36px;background:#fff;border-radius:18px;box-shadow:0 16px 44px rgba(16,40,74,.10)}.scoreline{margin-top:28px;display:flex;justify-content:center;align-items:baseline;gap:22px}.scoreline .base{font-size:54px;color:#7b8ba5}.scoreline .arrow{font-size:44px;color:#f06f5f}.scoreline .spec{font-size:76px;font-weight:800;color:#2459a6}.shot-pair{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:46px;align-items:start}.shot{background:#fff;border-radius:18px;padding:17px;box-shadow:0 16px 46px rgba(16,40,74,.13)}.shot img{width:100%;height:615px;object-fit:cover;object-position:top;border-radius:12px}.shot b{display:block;font-size:24px;margin:15px 6px 3px}.final-box{margin-top:54px;background:#10284a;color:#fff;border-radius:22px;padding:40px}.final-box p{margin:0 0 28px;font-size:31px;line-height:1.5}.final-box p:last-child{margin-bottom:0}.repo{margin-top:40px;font:700 25px/1.5 ui-monospace,monospace;color:#2459a6;overflow-wrap:anywhere}.note{margin-top:32px;font-size:25px;line-height:1.5;color:#5a6879}.coralbar{position:absolute;right:-110px;top:170px;width:390px;height:28px;background:#f06f5f;transform:rotate(90deg)}
+  </style>
+</head>
+<body>
+  <section class="card hero" data-card="1">
+    <img class="hero-bg" src="assets/spec-driven-hero-background.png" alt="">
+    <div class="hero-copy">
+      <div class="kicker">SPEC DRIVEN DEVELOPMENT</div>
+      <h1 class="title">我让 Agent 写了<br>6 个项目</h1>
+      <p class="lead">只给 idea 和先写 spec，盲评平均差了 <strong class="accent">22.17 分</strong></p>
+      <div class="footer"><span>面向学生与程序员</span><span>01 / 07</span></div>
+    </div>
+  </section>
+
+  <section class="card" data-card="2">
+    <div class="coralbar"></div>
+    <div class="kicker">THE PROBLEM</div>
+    <h1 class="title small">代码能跑<br>方向也会偏</h1>
+    <p class="lead">一句清楚的 idea，仍然留着很多没说出口的产品选择。</p>
+    <div class="issue-list">
+      <div class="issue"><b>前端删掉关键信息</b><span>手机端不溢出，却要横向滚动才能看 owner 和 timing</span></div>
+      <div class="issue"><b>API 改了失败语义</b><span>重复取消继续返回成功，字段名也偏离冻结合同</span></div>
+      <div class="issue"><b>小游戏换了玩法</b><span>中央安全带被做成二维移动目标环，测试依然可以全绿</span></div>
+    </div>
+    <div class="footer"><span>Agent 替人做了产品决定</span><span>02 / 07</span></div>
+  </section>
+
+  <section class="card" data-card="3">
+    <div class="kicker">THE FRAMEWORK</div>
+    <h1 class="title small">人只管产品含义<br>Agent 负责工程闭环</h1>
+    <div class="steps">
+      <div class="step"><span class="n">01</span><b>DISCOVER</b></div><div class="step"><span class="n">02</span><b>FRAME</b></div>
+      <div class="step"><span class="n">03</span><b>SPECIFY</b></div><div class="step"><span class="n">04</span><b>APPROVE</b></div>
+      <div class="step"><span class="n">05</span><b>IMPLEMENT</b></div><div class="step"><span class="n">06</span><b>VERIFY</b></div>
+      <div class="step"><span class="n">07</span><b>REVIEW</b></div><div class="step"><span class="n">08</span><b>RECORD</b></div>
+    </div>
+    <div class="owner"><b>人类确认</b> 用户问题、非目标、验收含义和高成本选择<br><b>Agent 决定</b> 模块、命名、测试组织和可逆技术方案</div>
+    <div class="footer"><span>产品变化就回到 APPROVE</span><span>03 / 07</span></div>
+  </section>
+
+  <section class="card" data-card="4">
+    <div class="kicker">LEARNED FROM DEEPSEEK HARNESS</div>
+    <h1 class="title small">文档真的参与开发</h1>
+    <p class="lead">`AGENTS.md`、当前文档、Agent Notes 和测试各管一类事实。</p>
+    <div class="numbers">
+      <div class="num"><strong>12,293</strong><span>全部 refs commit</span></div>
+      <div class="num"><strong>2,028</strong><span>修改 Agent Notes</span></div>
+      <div class="num"><strong>1,508</strong><span>Note 与 tests 同改</span></div>
+    </div>
+    <div class="timeline">
+      <div class="timeline-row"><em>常驻</em><div>`AGENTS.md` 只保存每次工作必须看到的边界</div></div>
+      <div class="timeline-row"><em>当前</em><div>Architecture 与 testing 写已经成立的系统事实</div></div>
+      <div class="timeline-row"><em>决策</em><div>Proposed Note 先批准，完成后改写成 implemented</div></div>
+      <div class="timeline-row"><em>证据</em><div>能机械检查的要求进入真实 gate</div></div>
+    </div>
+    <div class="footer"><span>固定快照 47f943859b</span><span>04 / 07</span></div>
+  </section>
+
+  <section class="card" data-card="5">
+    <div class="kicker">THE EXPERIMENT</div>
+    <h1 class="title small">三类项目<br>各做一组配对</h1>
+    <p class="lead">同一类 Agent、相同 idea 与资源、同样只有一次 repair。</p>
+    <div class="experiment-grid">
+      <div class="exp"><span class="icon">◫</span><div><b>Research Runboard</b><small>React 与 TypeScript</small></div><span class="pair">73<br>97</span></div>
+      <div class="exp"><span class="icon">⌘</span><div><b>Seat Hold API</b><small>FastAPI 与 SQLite</small></div><span class="pair">75<br>99</span></div>
+      <div class="exp"><span class="icon">◇</span><div><b>Signal Drift</b><small>Canvas 与 TypeScript</small></div><span class="pair">80<br>98.5</span></div>
+    </div>
+    <div class="note">Product owner 只回答产品问题。Blind evaluator 先冻结产品分，再看过程材料，最后才解盲。</div>
+    <div class="footer"><span>六套源码全部 fresh install</span><span>05 / 07</span></div>
+  </section>
+
+  <section class="card" data-card="6">
+    <div class="kicker">THE RESULT</div>
+    <h1 class="title small">平均提升 22.17 分</h1>
+    <div class="scoreline"><span class="base">76.00</span><span class="arrow">→</span><span class="spec">98.17</span></div>
+    <img class="chart" src="../interpretation/figs/score-comparison.svg" alt="三组总分对比">
+    <div class="owner"><b>首轮隐藏验收失败</b><br>只给 idea 平均 4.00 条　使用 Skill 平均 0.33 条</div>
+    <div class="footer"><span>产品分 +6.67　过程分 +15.50</span><span>06 / 07</span></div>
+  </section>
+
+  <section class="card" data-card="7">
+    <div class="kicker">WHAT I WOULD KEEP</div>
+    <h1 class="title small">先让错误暴露<br>再让 Agent 写代码</h1>
+    <div class="final-box">
+      <p>从一个一周内能做完、产品含义又有歧义的 feature 开始。</p>
+      <p>记录批准前发现的歧义、first-pass failure 和独立 review 仍发现的偏差。</p>
+      <p>三组 case 不能代表所有模型和项目，完整证据已经放进仓库。</p>
+    </div>
+    <div class="repo">github.com/Grenzlinie/<br>dsh-development-spec-skill</div>
+    <p class="lead">Skill、采用指南、六套源码、冻结 oracle、盲评与截图都可以复查。</p>
+    <div class="footer"><span>你会先让 Agent 写 spec 吗</span><span>07 / 07</span></div>
+  </section>
+  <script>
+    const n=new URLSearchParams(location.search).get('card')||'1';
+    const target=document.querySelector(`[data-card="${n}"]`);
+    if(target)target.classList.add('active');
+  </script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+{
+  "case": "seat-hold-api",
+  "locked_at": "2026-08-14T00:00:00+08:00",
+  "product_owner_answers": {
+    "create_contract": "POST /holds accepts seat_id, customer_id, idempotency_key, and optional ttl_seconds. TTL defaults to 120 seconds and must be 1 through 900.",
+    "create_result": "First creation returns 201. An identical retry with the same idempotency key returns the same hold without extending expiry and may return 200 or 201 if documented consistently.",
+    "idempotency_conflict": "Reusing an idempotency key with a different request returns 409.",
+    "states": "ACTIVE, CONFIRMED, CANCELLED, EXPIRED. Expiry is based on an injected UTC clock and is observed lazily on reads or mutations.",
+    "seat_exclusivity": "Only one ACTIVE hold can exist per seat. A CONFIRMED hold permanently consumes the seat in this service. CANCELLED or EXPIRED holds release it.",
+    "operations": "GET /holds/{hold_id} reads current state; POST /holds/{hold_id}/confirm confirms; DELETE /holds/{hold_id} cancels and returns 204 on the first successful cancellation.",
+    "state_conflicts": "Confirming expired or cancelled, cancelling confirmed, or acting on an unknown hold returns a clear 404 or 409 according to the documented contract; no transition silently succeeds.",
+    "concurrency": "Two simultaneous create requests for the same free seat and different idempotency keys result in exactly one ACTIVE hold and one 409."
+  },
+  "acceptance": [
+    {"id": "SH-01", "points": 5, "criterion": "Create validates required fields and TTL range, persists to SQLite, and returns a documented representation with stable id, state, created_at, and expires_at."},
+    {"id": "SH-02", "points": 5, "criterion": "Identical idempotent replay returns the original hold without extending expiry; key reuse with different payload returns 409."},
+    {"id": "SH-03", "points": 6, "criterion": "A controllable UTC clock drives lazy ACTIVE to EXPIRED transition exactly at expiry, and an expired hold releases the seat."},
+    {"id": "SH-04", "points": 5, "criterion": "Confirm and cancel enforce the state machine; confirmed seats remain unavailable and invalid transitions return documented errors."},
+    {"id": "SH-05", "points": 7, "criterion": "A real concurrent create race against one SQLite database yields one success, one 409, and never two ACTIVE holds."},
+    {"id": "SH-06", "points": 4, "criterion": "Restarting the app against the same database preserves holds and idempotency outcomes."},
+    {"id": "SH-07", "points": 3, "criterion": "OpenAPI and handoff document exact endpoints, status codes, state meanings, clock-test mechanism, install, run, and test commands."}
+  ],
+  "robustness": [
+    "Malformed JSON and invalid TTL return 422 without partial writes.",
+    "SQLite lock handling does not surface an unhandled 500 in the required two-request race.",
+    "Unknown ids and illegal transitions have stable structured errors."
+  ],
+  "api_review": [
+    "Names and status codes are internally consistent.",
+    "The representation makes state and expiry unambiguous.",
+    "Operational setup avoids hidden global state and runtime database artifacts in source."
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "all_commits": 12293,
+  "classification": {
+    "agent_note": ".agents/notes/**",
+    "docs": "docs/** or README.md, AGENTS.md, CLAUDE.md basename",
+    "production": "packages/**, python/**, native/**, examples/**, website/** excluding test-pattern paths",
+    "tests": "test/tests/__tests__/fixtures/snapshot path segments or *.test.*/*.spec.*"
+  },
+  "cochange": {
+    "agent_note_and_production": 1441,
+    "agent_note_and_tests": 1508
+  },
+  "commits_touching": {
+    "agent_note": 2028,
+    "docs": 3320,
+    "production": 4136,
+    "tests": 4360
+  },
+  "first_parent_commits": 972,
+  "head": "47f943859bef60e4160492346772ded9b24f765a",
+  "head_date": "2026-08-13T19:38:46+08:00",
+  "non_merge_commits": 6683,
+  "repository": "https://github.com/deepseek-ai/deepseek-harness.git"
+}

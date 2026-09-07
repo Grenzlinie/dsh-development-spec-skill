@@ -1,0 +1,194 @@
+\documentclass[11pt,fontset=fandol]{ctexart}
+\usepackage[a4paper,margin=2.3cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+\usepackage{graphicx}
+\graphicspath{{figs/}}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\setlist{itemsep=2pt,topsep=3pt}
+\usepackage{titlesec}
+\titleformat{\section}{\large\bfseries\color{black!85}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{black!75}}{\thesubsection}{0.6em}{}
+\usepackage{fancyhdr}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\small Spec-Driven Development}
+\fancyhead[R]{\small 项目解读}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\definecolor{boxbg}{RGB}{245,247,250}
+\definecolor{accent}{RGB}{40,90,150}
+\definecolor{coral}{RGB}{240,111,95}
+\usepackage[most]{tcolorbox}
+\newtcolorbox{keybox}{colback=boxbg,colframe=accent!60,boxrule=0.5pt,arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt}
+\usepackage[colorlinks=true,linkcolor=accent,urlcolor=accent]{hyperref}
+\newcommand{\origcap}[1]{{\small\itshape #1}}
+\newcommand{\onefig}[3][0.70]{\begin{center}\includegraphics[width=#1\textwidth]{#2}\\[3pt]\origcap{#3}\end{center}}
+\newcommand{\twofig}[6][0.36]{\begin{center}%
+\begin{minipage}{#1\textwidth}\centering\includegraphics[width=\linewidth]{#2}\\[1pt]{\scriptsize #3}\end{minipage}\hspace{0.04\textwidth}%
+\begin{minipage}{#1\textwidth}\centering\includegraphics[width=\linewidth]{#4}\\[1pt]{\scriptsize #5}\end{minipage}\\[3pt]\origcap{#6}\end{center}}
+
+\title{\textbf{我把一句 idea 交给 Agent，又让它先写 spec}\\[4pt]\large 六个小项目如何拉开 22.17 分}
+\author{}\date{}
+
+\begin{document}
+\maketitle
+\vspace{-2.0em}
+
+\begin{keybox}\small
+\textbf{项目}\quad \href{https://github.com/Grenzlinie/dsh-development-spec-skill}{Grenzlinie/dsh-development-spec-skill}\\
+\textbf{上游样本}\quad DeepSeek Harness commit \texttt{47f943859bef60e4160492346772ded9b24f765a}\\
+\textbf{实操范围}\quad React 前端、FastAPI 后端、Canvas 小游戏，共三组配对实验\\
+\textbf{一句话}\quad 人保留产品决定，Agent 按获批 spec 完成实现、验收和记录
+\end{keybox}
+
+\begin{center}
+\includegraphics[width=0.66\textwidth]{spec-driven-hero-background.png}
+\end{center}
+
+\section{项目动机}
+
+Coding agent 已经能把一句需求迅速变成能跑的代码。速度提高以后，产品里的空白也更容易被它自行补齐。失败状态怎样排序，移动端允许省掉哪些信息，重复请求该成功还是冲突，重启以后哪些状态必须清零。这些问题没有提前写清，Agent 就会选一个答案继续做。
+
+Research Runboard 的 baseline 首轮漏掉 \texttt{Attention}、失败优先级和 Retry。Seat Hold API 把重复取消继续当成功，状态字段又偏离冻结合同。Signal Drift 把水平中央安全带改成二维移动目标环。三份代码都能运行，修复以后测试也全绿，产品含义却发生了不同程度的漂移。
+
+项目因此选择一条很窄的分工。人回答用户问题、目标、非目标、验收含义和高成本选择。Agent 负责澄清、写 spec、实现、测试、审查与文档同步。每个非平凡变更先建立 Agent Note，产品含义获批以后才进入生产实现。
+
+\begin{keybox}\small
+目标是建立一条可复查的连接\\[2pt]
+\centering\texttt{idea $\rightarrow$ approved decisions $\rightarrow$ code/tests/docs $\rightarrow$ evidence}
+\end{keybox}
+
+\section{从 DeepSeek Harness 学到的结构}
+
+DeepSeek Harness 把不同信息放进不同权威层。根 \texttt{AGENTS.md} 保存每次工作都要看到的常驻边界。Architecture 和 testing 文档描述当前系统。Agent Notes 保存仍可重新讨论的决定。测试与 validator 负责拒绝不一致的结果。
+
+仓库历史显示，这套制度经过多次迭代才成形。最初几天先建立 instructions、需求和架构，随后补入 review 修复、决策记录与质量 gate。部分 ADR 是回填，所以本项目没有把今天的规则倒推成上游从第一天就完整执行的流程。
+
+在固定快照上重跑分析，全部 refs 共 12,293 个 commit，non-merge 有 6,683 个。2,028 个 non-merge commit 修改 Agent Notes，1,441 个同时修改 Note 与 production path，1,508 个同时修改 Note 与 tests。这些计数证明文档和代码存在大规模共同演化。它们无法证明某一份 Note 必然先于代码，效果也需要另做实验。
+
+\onefig[0.86]{workflow.png}{原文 Fig.\,1：本项目从 DeepSeek Harness 的文档分工中抽出的八步开发循环。}
+
+本项目保留了五条机制。
+
+\begin{itemize}
+  \item 人与 Agent 的 decision ownership 分开，批准点落在产品含义和高成本选择上。
+  \item 非平凡工作先形成 proposal，验收标准只描述 observable outcome。
+  \item Instructions、current-state docs、decision record 和 tests 各有权威范围。
+  \item Proposed 与 implemented 使用不同语气，完成以后记录已经成立的事实。
+  \item 能机械检查的规则进入真实 gate，交付时保留实际结果。
+\end{itemize}
+
+\section{Skill 框架}
+
+\texttt{spec-driven-development} 使用八步循环。\texttt{DISCOVER} 先读仓库和约束。\texttt{FRAME} 把 idea 写成问题、目标与边界。\texttt{SPECIFY} 形成 Agent Note。\texttt{APPROVE} 由人确认产品含义。批准以后进入 \texttt{IMPLEMENT}、\texttt{VERIFY} 和 \texttt{REVIEW}，最后用 \texttt{RECORD} 把 proposal 改写成当前决定。
+
+产品含义变化时，工作退回 \texttt{APPROVE}。模块划分、内部接口和测试组织等可逆选择由 Agent 继续处理。这个边界让人离开普通工程微管理，也让 Agent 无法用“技术上更容易”替代产品批准。
+
+Skill 自带标准库实现的 \texttt{specctl.py}。它检查治理文件、创建和校验 Note、限制状态迁移并执行项目登记的验证命令。所有写操作默认先预览，显式加入 \texttt{--apply} 才落盘。一次 diff 是否属于非平凡变更仍由 Agent 做语义判断，工具不会根据文件名假装理解产品影响。
+
+\begin{keybox}\small
+人主要回答五类问题\\
+用户遇到了什么，哪些结果算成功，哪些内容明确不做，哪些选择代价很高，失败以后是否改变原目标。
+\end{keybox}
+
+\section{实操检验怎样保持可复查}
+
+实验选了三类项目。
+
+\begin{center}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.29\textwidth}p{0.27\textwidth}p{0.32\textwidth}}
+\toprule
+项目 & 技术 & 主要产品风险 \\
+\midrule
+Research Runboard & React 与 TypeScript & 状态、排序、移动信息与 Retry \\
+Seat Hold API & FastAPI 与 SQLite & 幂等、四态、并发与重启持久性 \\
+Signal Drift & Canvas 与 TypeScript & 确定性、计时、暂停与玩法边界 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+每组共享同一份 idea、公开资源、builder model、reasoning effort 和一次标准 repair。Product oracle、分值与 condition map 在 builder 启动前锁定并记录 SHA-256。Treatment 唯一增加的条件，是显式使用本项目 Skill 与治理流程。
+
+同一个 product owner simulator 只回答产品行为、优先级和验收含义。Baseline 可以提问，三组都没有提问。Treatment 分别经过 2、3、3 轮 proposal review 才获批准。Blind evaluator 先只看匿名源码、运行结果和 product oracle，冻结 70 分产品 scorecard，随后才读取过程 artifacts 评 30 分，最后解盲。
+
+六套项目均完成 fresh install，所有测试与构建通过。四个 Web 项目在 1440\,$\times$\,900 和 390\,$\times$\,844 下完成真实浏览器检查，共保留 10 张截图。
+
+\section{结果怎样算出来}
+
+对第 $i$ 个 case，最终总分由产品分与过程分相加。
+
+\begin{equation}
+T_i=P_i+R_i,
+\qquad P_i\in[0,70],\quad R_i\in[0,30].
+\end{equation}
+
+$P_i$ 检查隐藏验收、robustness、产品质量与 test quality。$R_i$ 检查 spec traceability、当前文档一致性和可复现交接。Treatment 相对 baseline 的平均变化写成
+
+\begin{equation}
+\begin{aligned}
+\overline{\Delta T}
+&=\frac{1}{3}\sum_{i=1}^{3}\left(T_i^{\mathrm{skill}}-T_i^{\mathrm{idea}}\right)\\
+&=\frac{(97-73)+(99-75)+(98.5-80)}{3}\\
+&=\frac{24+24+18.5}{3}=22.1667.
+\end{aligned}
+\end{equation}
+
+关键就在这一步。22.17 分纳入了三对匿名盲评的全部差值。产品分平均增加 6.67，过程分平均增加 15.50。
+
+\onefig[0.91]{score-comparison.png}{原文 Fig.\,2：三组配对实验的匿名盲评总分，蓝色为显式使用 Skill 的 candidate。}
+
+首轮实现结束时，baseline 分别留下 3、4、5 个隐藏验收失败项。Treatment 是 0、1、0，唯一一次失败来自 Python 测试 package 的导入方式，没有改变 API 合同。
+
+\begin{equation}
+\overline{F}_{\mathrm{idea}}=\frac{3+4+5}{3}=4.00,
+\qquad
+\overline{F}_{\mathrm{skill}}=\frac{0+1+0}{3}=0.33.
+\end{equation}
+
+\onefig[0.91]{first-pass.png}{原文 Fig.\,3：生产代码首轮完成后仍未满足的隐藏验收条目，数值越低越好。}
+
+\section{截图里能看见的差别}
+
+Runboard 的 baseline 在 repair 后已经可用，390px 页面也没有整页横向溢出。内部列表仍需要横向滚动，owner、environment 和 timing 无法在卡片中直接扫读。Spec 组将这些字段、失败原因和 Retry 留在同一张移动卡片里。
+
+\twofig[0.34]{runboard-baseline-mobile.png}{只给 idea}{runboard-spec-mobile.png}{使用 Skill}{原文 Fig.\,4：Research Runboard 在 390px 移动视口下的最终实机截图。}
+
+Signal Drift baseline 的视觉完成度并不低。它保留二维移动目标环与上下控制，已经偏离获批前应明确的水平中央安全带。Spec 组通过 product review 在生产实现前固定 safe band、750ms damage、800ms grace、可见暂停与完整 restart。
+
+\twofig[0.34]{signal-baseline-mobile.png}{只给 idea}{signal-spec-mobile.png}{使用 Skill}{原文 Fig.\,5：Signal Drift 的暂停状态，左侧玩法目标已经发生偏移。}
+
+\section{我的评价}
+
+\subsection{站得住的地方}
+
+\begin{itemize}
+  \item 六套候选保存完整 source、lock、tests、first-pass evidence、final evidence 与 handoff，结果可以重复检查。
+  \item 产品分在过程材料打开前冻结，condition map 在评分完成后才解盲，减少了身份偏见影响产品判断。
+  \item Baseline 的三个最终偏差都发生在 tests 全绿以后，说明独立 product review 与 spec 对照确实提供了额外信息。
+  \item Treatment 的限制也被保留。Runboard 的治理命令未直接包含关键移动端测试，Seat API 的错误 envelope 仍不稳定，Signal Drift 的自然 blur 事件保持 unresolved。
+\end{itemize}
+
+\subsection{需要打折扣的地方}
+
+\begin{itemize}
+  \item 样本量只有三对，builder 也属于同一类模型，22.17 分不能当作其他模型、团队或大系统的预期收益。
+  \item Product owner 与 evaluator 都是模拟角色。它们比 builder 隔离得更好，仍不能代替真实用户研究和专业领域审批。
+  \item 四个 Web 项目完成双视口检查，没有进行完整 screen-reader 审计。两个 API 项目完成 package build，没有进入真实生产部署。
+  \item 文档和 Note 会增加前置成本。Typo、格式化与局部机械修改应当豁免完整生命周期。
+\end{itemize}
+
+\subsection{一句总评}
+
+在这三个 case 里，显式 spec 与真实批准减少了首轮产品合同漂移。Agent Note、当前文档和 verification evidence 又让 evaluator 更容易发现测试通过以后仍存在的偏差。这个结果适合支持一次小范围采用，尚不足以支持普遍因果判断。
+
+\begin{keybox}\small
+\textbf{怎样开始}\quad 选一个一周内能做完、产品含义又有歧义的 feature。记录批准前发现的歧义、first-pass failure 和独立 review 仍发现的偏差。流程若只增加文档而没有减少这些量，就继续缩短模板和批准面。
+\\[4pt]
+\textbf{完整材料}\quad \href{https://github.com/Grenzlinie/dsh-development-spec-skill}{GitHub 仓库}保存 Skill、采用指南、六套候选源码、冻结 oracle、blind scorecard、命令结果与 10 张截图。
+\end{keybox}
+
+\end{document}

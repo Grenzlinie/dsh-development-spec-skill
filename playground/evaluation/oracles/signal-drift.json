@@ -1,0 +1,33 @@
+{
+  "case": "signal-drift",
+  "locked_at": "2026-08-14T00:00:00+08:00",
+  "product_owner_answers": {
+    "goal": "Keep the signal marker inside a central safe band while deterministic disturbances push it horizontally.",
+    "controls": "Left/Right arrows and A/D steer. P or Escape pauses/resumes. Enter restarts after game over; an on-screen restart control is also required.",
+    "lives": "Start with three lives. Remaining outside the safe band continuously for 750ms loses one life, recenters the signal, and grants 800ms grace before another loss.",
+    "score": "Score increases by one per survived second while playing, not while paused or after game over.",
+    "difficulty": "Disturbance strength increases gradually with survived time but remains deterministic for a supplied seed and sequence of time steps.",
+    "state_model": "Core state updates accept explicit input and delta time, clamp an individual delta to 100ms, and do not read wall-clock time or DOM APIs.",
+    "responsive": "Canvas fits 390x844 and desktop without page overflow; game coordinates remain stable as CSS size changes.",
+    "accessibility": "Canvas has an accessible name, instructions and live score/lives text exist outside the bitmap, controls are keyboard reachable, and pause is obvious when focus is lost."
+  },
+  "acceptance": [
+    {"id": "SD-01", "points": 6, "criterion": "Keyboard steering changes deterministic core state in the correct direction; disturbance for the same seed and dt sequence is repeatable."},
+    {"id": "SD-02", "points": 6, "criterion": "Continuous 750ms outside the band removes exactly one of three lives, recenters, and enforces 800ms grace."},
+    {"id": "SD-03", "points": 5, "criterion": "Score advances only during active play at one point per survived second; pause and game over freeze it."},
+    {"id": "SD-04", "points": 5, "criterion": "P/Escape and visible control pause/resume; blur pauses; Enter and visible restart create a fresh deterministic initial state after game over."},
+    {"id": "SD-05", "points": 5, "criterion": "Core update is DOM-free, accepts explicit dt/input, clamps dt to 100ms, and has automated tests for repeatability and lifecycle edges."},
+    {"id": "SD-06", "points": 5, "criterion": "Desktop and 390x844 render without page overflow; score, lives, state, and instructions remain readable outside the canvas."},
+    {"id": "SD-07", "points": 3, "criterion": "Production build succeeds and the handoff documents controls, install, test, and build commands."}
+  ],
+  "robustness": [
+    "Held keys release on keyup and blur, avoiding stuck steering.",
+    "Large frame gaps cannot skip multiple lives because dt is clamped and grace is enforced.",
+    "Restart clears timers, input, score, lives, and pause/game-over flags."
+  ],
+  "game_review": [
+    "The player can understand goal and danger without reading source.",
+    "Motion, feedback, and hierarchy feel intentional rather than default canvas primitives.",
+    "Pause, damage, and game-over states are immediately distinguishable."
+  ]
+}

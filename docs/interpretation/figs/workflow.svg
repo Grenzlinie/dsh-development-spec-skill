@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f7f3ea"/>
+  <text x="800" y="100" font-family="Arial, PingFang SC, sans-serif" font-size="54" font-weight="700" fill="#10284a" text-anchor="middle">Idea 到可验收代码的八步循环</text>
+  <g font-family="Arial, PingFang SC, sans-serif" text-anchor="middle">
+    <g fill="#10284a"><rect x="80" y="235" width="270" height="130" rx="24"/><rect x="450" y="235" width="270" height="130" rx="24"/><rect x="820" y="235" width="270" height="130" rx="24"/><rect x="1190" y="235" width="270" height="130" rx="24"/></g>
+    <g fill="#2459a6"><rect x="1190" y="535" width="270" height="130" rx="24"/><rect x="820" y="535" width="270" height="130" rx="24"/><rect x="450" y="535" width="270" height="130" rx="24"/><rect x="80" y="535" width="270" height="130" rx="24"/></g>
+    <g fill="#ffffff" font-size="31" font-weight="700">
+      <text x="215" y="315">DISCOVER</text><text x="585" y="315">FRAME</text><text x="955" y="315">SPECIFY</text><text x="1325" y="315">APPROVE</text>
+      <text x="1325" y="615">IMPLEMENT</text><text x="955" y="615">VERIFY</text><text x="585" y="615">REVIEW</text><text x="215" y="615">RECORD</text>
+    </g>
+    <g fill="#5a6879" font-size="23">
+      <text x="215" y="405">读仓库和现实约束</text><text x="585" y="405">写清目标与边界</text><text x="955" y="405">形成可批准的 Note</text><text x="1325" y="405">人类确认产品含义</text>
+      <text x="1325" y="705">Agent 自主写代码</text><text x="955" y="705">执行真实验收</text><text x="585" y="705">对照批准内容审查</text><text x="215" y="705">把决定写成当前事实</text>
+    </g>
+  </g>
+  <g fill="none" stroke="#f06f5f" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M350 300H450"/><path d="M720 300H820"/><path d="M1090 300H1190"/><path d="M1325 365V535"/>
+    <path d="M1190 600H1090"/><path d="M820 600H720"/><path d="M450 600H350"/><path d="M215 535V365"/>
+  </g>
+  <g fill="#f06f5f"><path d="M438 286l24 14-24 14z"/><path d="M808 286l24 14-24 14z"/><path d="M1178 286l24 14-24 14z"/><path d="M1311 523l14 24 14-24z"/><path d="M1102 586l-24 14 24 14z"/><path d="M732 586l-24 14 24 14z"/><path d="M362 586l-24 14 24 14z"/><path d="M201 377l14-24 14 24z"/></g>
+  <text x="800" y="820" font-family="Arial, PingFang SC, sans-serif" font-size="26" fill="#10284a" text-anchor="middle">产品含义变化时回到 APPROVE，可逆的工程选择由 Agent 继续处理</text>
+</svg>

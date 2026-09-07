@@ -1,0 +1,32 @@
+{
+  "case": "research-runboard",
+  "locked_at": "2026-08-14T00:00:00+08:00",
+  "product_owner_answers": {
+    "primary_user": "A lab member checking many computational runs between other tasks; failures must be visible in seconds.",
+    "priority": "Order status groups Failed, Attention, Running, Queued, Complete; within a group show newest first.",
+    "search": "Case-insensitive search matches run name, owner, method or model, and run id.",
+    "filters": "Support All plus each status. Search and status filter combine, and an empty result explains how to clear filters.",
+    "failure_action": "A failed item exposes its failure reason and a visible Retry affordance. The demo can update local state; no backend is needed.",
+    "responsive": "At 390px there is no horizontal page scroll. Dense table rows may become cards but retain status, owner, timing, and failure information.",
+    "accessibility": "Keyboard users can reach search, status filters, and row actions. Use visible focus and programmatic labels; color is not the only status signal."
+  },
+  "acceptance": [
+    {"id": "RR-01", "points": 7, "criterion": "Initial view contains at least eight realistic runs across Failed, Attention, Running, Queued, and Complete, with Failed and Attention above lower-priority groups."},
+    {"id": "RR-02", "points": 6, "criterion": "Search is case-insensitive across name, owner, method/model, and id; status filter combines with search and can be cleared."},
+    {"id": "RR-03", "points": 5, "criterion": "Summary counts reflect the complete seeded set and an empty filtered state is actionable."},
+    {"id": "RR-04", "points": 5, "criterion": "Failed runs expose reason and a working local Retry action that changes visible status without corrupting totals."},
+    {"id": "RR-05", "points": 5, "criterion": "At 1440x900 and 390x844 all load-bearing information remains readable with no horizontal page scroll."},
+    {"id": "RR-06", "points": 4, "criterion": "Search, filters, and actions are keyboard operable with visible focus and accessible names; statuses are not color-only."},
+    {"id": "RR-07", "points": 3, "criterion": "Automated tests cover priority ordering, combined filtering, empty state, and retry state change; production build succeeds."}
+  ],
+  "robustness": [
+    "Unknown or missing optional metadata renders a safe fallback rather than crashing.",
+    "Search text with spaces or mixed case behaves predictably.",
+    "Rapid filter changes do not leave stale counts or selection."
+  ],
+  "visual_review": [
+    "Failure hierarchy is apparent before reading every label.",
+    "Typography, spacing, and density fit a serious research tool rather than a generic demo.",
+    "Mobile layout preserves action clarity."
+  ]
+}

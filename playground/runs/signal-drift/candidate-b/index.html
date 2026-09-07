@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#071311" />
+    <meta
+      name="description"
+      content="Signal Drift: Relay 7 — hold a deep-space carrier inside the safe band."
+    />
+    <title>Signal Drift: Relay 7</title>
+  </head>
+  <body>
+    <div id="app" class="console-shell">
+      <header class="masthead">
+        <div class="identity">
+          <span class="eyebrow">DEEP RANGE ARRAY / CHANNEL 07</span>
+          <h1>Signal Drift</h1>
+        </div>
+        <div class="mission-copy">
+          <span class="online-dot" aria-hidden="true"></span>
+          RELAY 7 · KEEP THE MARKER IN THE SAFE BAND
+        </div>
+      </header>
+
+      <section class="telemetry" aria-label="Live telemetry">
+        <div class="telemetry-cell">
+          <span class="label">Score</span>
+          <output id="score">000</output>
+        </div>
+        <div class="telemetry-cell">
+          <span class="label">Lives</span>
+          <output id="lives" aria-label="3 lives remaining">● ● ●</output>
+        </div>
+        <div class="telemetry-cell telemetry-state">
+          <span class="label">Carrier state</span>
+          <output id="status" aria-live="polite">CARRIER LOCKED</output>
+        </div>
+        <div class="telemetry-cell">
+          <span class="label">Drift exposure</span>
+          <div
+            id="danger-track"
+            class="meter"
+            role="progressbar"
+            aria-label="Time continuously outside the safe band"
+            aria-valuemin="0"
+            aria-valuemax="750"
+            aria-valuenow="0"
+          >
+            <span id="danger-fill"></span>
+          </div>
+        </div>
+      </section>
+
+      <main class="workspace">
+        <section class="scope-panel" aria-label="Receiver display">
+          <div class="scope-frame">
+            <canvas
+              id="game"
+              role="img"
+              aria-label="Signal alignment scope showing a horizontal signal marker and central safe band"
+            >
+              Signal alignment scope. Live score, lives, and carrier state are available above.
+            </canvas>
+            <div class="glass-noise" aria-hidden="true"></div>
+          </div>
+          <div class="scope-caption" aria-hidden="true">
+            <span>−1.0 DRIFT</span>
+            <span>SAFE BAND</span>
+            <span>+1.0 DRIFT</span>
+          </div>
+        </section>
+
+        <aside class="operator-panel" aria-label="Operator controls">
+          <div class="briefing">
+            <span class="panel-number">01 / ALIGNMENT</span>
+            <h2>Hold the carrier.</h2>
+            <p>
+              Counter horizontal interference. Stay outside the safe band for
+              <strong>750ms</strong> and a life is lost.
+            </p>
+          </div>
+
+          <dl class="control-list" aria-label="Keyboard controls">
+            <div><dt><kbd>←</kbd><kbd>A</kbd></dt><dd>Correct left</dd></div>
+            <div><dt><kbd>→</kbd><kbd>D</kbd></dt><dd>Correct right</dd></div>
+            <div><dt><kbd>P</kbd><kbd>Esc</kbd></dt><dd>Pause / resume</dd></div>
+            <div><dt><kbd>Enter</kbd></dt><dd>Restart after loss</dd></div>
+          </dl>
+
+          <div class="button-row">
+            <button id="pause-button" type="button">Pause</button>
+            <button id="restart-button" type="button" class="button-secondary">Restart</button>
+          </div>
+        </aside>
+      </main>
+
+      <footer class="footer-strip">
+        <span>Score: +1 / active second</span>
+        <span>Automatic focus-loss safety: enabled</span>
+        <span id="runtime-note">Deterministic receiver core</span>
+      </footer>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

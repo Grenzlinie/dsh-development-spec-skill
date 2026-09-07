@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "case": "seat-hold-api",
+  "candidate": "candidate-a",
+  "repair": "fresh-python-3.13-test-import-reproducibility",
+  "pass": true,
+  "completed_at": "2026-08-14",
+  "reported_failure": {
+    "criterion": "SH-07",
+    "command": "UV_CACHE_DIR=/tmp/dsh-sdd-uv-cache uv run --frozen --all-groups pytest -q",
+    "original_exit_code": 1,
+    "original_result": "Fresh Python 3.13 collection failed with ModuleNotFoundError: No module named 'tests' from tests/test_api.py importing tests.conftest."
+  },
+  "change": {
+    "files": [
+      "tests/__init__.py",
+      "HANDOFF.md",
+      ".agents/notes/implemented/testing/2026-08-14-fresh-python-test-import.md"
+    ],
+    "summary": "Made tests an explicit package so the existing tests.conftest import works in a fresh locked Python 3.13 environment without PYTHONPATH overrides; documented the load-bearing fresh command.",
+    "product_behavior_changed": false,
+    "dependencies_changed": false
+  },
+  "checks": [
+    {
+      "criterion": "SH-07",
+      "command": "UV_CACHE_DIR=/tmp/dsh-sdd-uv-cache uv run --frozen --all-groups pytest -q",
+      "exit_code": 0,
+      "status": "pass",
+      "result": "13 passed in 0.13s; no PYTHONPATH override"
+    },
+    {
+      "criterion": "focused-http",
+      "command": ".venv/bin/python -m pytest -q tests/test_api.py",
+      "exit_code": 0,
+      "status": "pass",
+      "result": "8 passed in 0.09s"
+    },
+    {
+      "criterion": "focused-concurrency",
+      "command": ".venv/bin/python -m pytest -q tests/test_concurrency.py",
+      "exit_code": 0,
+      "status": "pass",
+      "result": "5 passed in 0.05s"
+    },
+    {
+      "criterion": "static",
+      "command": ".venv/bin/python -m ruff check .",
+      "exit_code": 0,
+      "status": "pass",
+      "result": "All checks passed!"
+    },
+    {
+      "criterion": "build",
+      "command": ".venv/bin/python -m build",
+      "exit_code": 0,
+      "status": "pass",
+      "result": "Successfully built seat_hold_api-0.1.0.tar.gz and seat_hold_api-0.1.0-py3-none-any.whl"
+    },
+    {
+      "criterion": "governance",
+      "command": "python3 ../../../../.codex/skills/spec-driven-development/scripts/specctl.py verify --root . --require-note",
+      "exit_code": 0,
+      "status": "pass",
+      "result": "governance_pass=true, errors=[], tests 13 passed in 0.13s, Ruff passed, build passed"
+    }
+  ],
+  "review": {
+    "status": "pass",
+    "finding_resolved": true,
+    "product_contract_preserved": true,
+    "test_assertions_weakened": false,
+    "undocumented_environment_override_added": false,
+    "unresolved": []
+  },
+  "cleanup": {
+    "required": [
+      ".venv",
+      "cache directories",
+      "build",
+      "dist",
+      "egg-info",
+      "pyc",
+      "coverage output",
+      "runtime databases"
+    ],
+    "status": "removed after verification"
+  }
+}

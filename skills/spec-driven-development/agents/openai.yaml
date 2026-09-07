@@ -1,0 +1,4 @@
+interface:
+  display_name: "Spec-Driven Development"
+  short_description: "Turn product ideas into verified, traceable code"
+  default_prompt: "Use $spec-driven-development to turn this idea into an approved specification, implementation, and verification record."

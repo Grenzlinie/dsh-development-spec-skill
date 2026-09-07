@@ -1,0 +1,48 @@
+{
+  "name": "dsh-spec-driven-development",
+  "version": "0.1.0",
+  "description": "Spec-driven software development workflow for DeepSeek Harness",
+  "type": "module",
+  "main": "./dsh-plugin/index.js",
+  "exports": {
+    ".": "./dsh-plugin/index.js",
+    "./cordis.patch.yml": "./cordis.patch.yml"
+  },
+  "files": [
+    "dsh-plugin/index.js",
+    "skills/spec-driven-development",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "sync:dsh": "python3 scripts/sync_dsh_plugin.py --write",
+    "check:dsh": "python3 scripts/sync_dsh_plugin.py --check && python3 scripts/verify_dsh_package.py",
+    "test": "node --test tests/dsh-plugin.test.mjs"
+  },
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "agent-skill",
+    "spec-driven-development"
+  ],
+  "author": "Grenzlinie",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Grenzlinie/dsh-development-spec-skill.git"
+  },
+  "homepage": "https://github.com/Grenzlinie/dsh-development-spec-skill#readme",
+  "bugs": {
+    "url": "https://github.com/Grenzlinie/dsh-development-spec-skill/issues"
+  },
+  "engines": {
+    "node": "^22.19.0 || >=24.0.0"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "pass": "first-pass",
+  "completed_on": "2026-08-14",
+  "environment": {
+    "python": "CPython 3.13.3",
+    "platform": "macOS arm64",
+    "dependency_environment": "/tmp/seat-hold-candidate-b-venv (temporary; not part of delivery)"
+  },
+  "checks": [
+    {
+      "name": "automated tests",
+      "command": "PYTHONDONTWRITEBYTECODE=1 /tmp/seat-hold-candidate-b-venv/bin/python -m pytest -p no:cacheprovider",
+      "exit_code": 0,
+      "result": "7 passed in 0.08s",
+      "coverage": [
+        "create/read/confirm happy path",
+        "idempotent create and idempotency-key conflict",
+        "idempotent cancel and seat release",
+        "deterministic expiry with injected clock",
+        "active-seat conflict",
+        "eight concurrent attempts produce one success and seven conflicts",
+        "input validation and not-found behavior"
+      ]
+    },
+    {
+      "name": "production wheel build",
+      "command": "/tmp/seat-hold-candidate-b-venv/bin/python -m pip wheel --no-deps --no-build-isolation -w /tmp/seat-hold-candidate-b-dist .",
+      "exit_code": 0,
+      "result": "Successfully built seat-hold-api; seat_hold_api-0.1.0-py3-none-any.whl; sha256=9606f8a9a25a667d1dfb0bfa7167f65b7512e3045365238b1e51187b4a17e476"
+    },
+    {
+      "name": "bytecode compilation",
+      "command": "/tmp/seat-hold-candidate-b-venv/bin/python -m compileall -q seat_hold_api tests",
+      "exit_code": 0,
+      "result": "completed with no output"
+    },
+    {
+      "name": "evidence and delivery hygiene",
+      "command": "/tmp/seat-hold-candidate-b-venv/bin/python -m json.tool evidence/first-pass.json >/dev/null && find . \\( -name .venv -o -name __pycache__ -o -name .pytest_cache -o -name build -o -name dist -o -name '*.egg-info' -o -name '*.db' -o -name '*.db-shm' -o -name '*.db-wal' -o -name .coverage \\) -print",
+      "exit_code": 0,
+      "result": "JSON validation passed and artifact scan produced no output"
+    }
+  ],
+  "resolved_attempts": [
+    {
+      "command": "/tmp/seat-hold-candidate-b-venv/bin/python -m pip wheel --no-deps --no-build-isolation -w /tmp/seat-hold-candidate-b-dist .",
+      "initial_exit_code": 1,
+      "initial_result": "No module named pip in the uv-created temporary virtual environment",
+      "resolution": "Installed pinned pip 25.2, setuptools 80.9.0, and wheel 0.45.1 into the temporary verification environment; added the two build backends to requirements.lock; rerun passed. The documented python3 -m venv flow includes pip."
+    }
+  ],
+  "artifact_policy": {
+    "wheel_output": "/tmp/seat-hold-candidate-b-dist",
+    "retained_in_candidate": false,
+    "forbidden_artifacts_removed": [
+      ".pytest_cache",
+      "build",
+      "seat_hold_api.egg-info",
+      "__pycache__",
+      "seat_holds.db"
+    ]
+  }
+}

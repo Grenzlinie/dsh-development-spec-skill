@@ -1,0 +1,62 @@
+{
+  "case": "seat-hold-api",
+  "maximum": 100,
+  "candidates": {
+    "candidate-a": {
+      "product_score": 69.0,
+      "process_score": 30.0,
+      "total_score": 99.0,
+      "first_pass_failed_acceptance": 1,
+      "final_failed_acceptance": 0,
+      "process": {
+        "spec_traceability": {
+          "score": 15.0,
+          "maximum": 15,
+          "evidence": ["playground/runs/seat-hold-api/candidate-a/.agents/notes/implemented/feature/2026-08-14-seat-hold-api.md", "playground/runs/seat-hold-api/candidate-a/.agents/notes/implemented/testing/2026-08-14-fresh-python-test-import.md", "playground/runs/seat-hold-api/candidate-a/evidence/hidden-first-pass.json", "playground/runs/seat-hold-api/candidate-a/evidence/final.json"],
+          "deduction": null
+        },
+        "architecture_docs_consistency": {
+          "score": 10.0,
+          "maximum": 10,
+          "evidence": ["playground/runs/seat-hold-api/candidate-a/docs/architecture.md", "playground/runs/seat-hold-api/candidate-a/docs/development.md", "playground/runs/seat-hold-api/candidate-a/docs/testing.md", "playground/runs/seat-hold-api/candidate-a/.agents/spec-driven-development.json", "playground/evaluation/command-results/process-verification.json"],
+          "deduction": null
+        },
+        "reproducible_handoff": {
+          "score": 5.0,
+          "maximum": 5,
+          "evidence": ["playground/runs/seat-hold-api/candidate-a/HANDOFF.md", "playground/evaluation/command-results/product-verification.json", "playground/evaluation/command-results/process-verification.json"],
+          "deduction": null
+        }
+      },
+      "product_detail": "playground/evaluation/product-scorecards/seat-hold-api.json"
+    },
+    "candidate-b": {
+      "product_score": 60.5,
+      "process_score": 14.5,
+      "total_score": 75.0,
+      "first_pass_failed_acceptance": 4,
+      "final_failed_acceptance": 0,
+      "process": {
+        "spec_traceability": {
+          "score": 5.0,
+          "maximum": 15,
+          "evidence": ["playground/runs/seat-hold-api/candidate-b/evidence/hidden-first-pass.json", "playground/runs/seat-hold-api/candidate-b/evidence/final.json", "playground/runs/seat-hold-api/candidate-b/HANDOFF.md"],
+          "deduction": "The repair record maps four reported criteria to files and commands, but there is no candidate-owned approval record, alternatives/non-goals, or implemented decision authority. Final evidence also labels SH-04 PASS while the shipped repeat-cancel behavior still conflicts with the locked contract."
+        },
+        "architecture_docs_consistency": {
+          "score": 5.0,
+          "maximum": 10,
+          "evidence": ["playground/runs/seat-hold-api/candidate-b/HANDOFF.md", "playground/runs/seat-hold-api/candidate-b/HTTP_API.md", "playground/runs/seat-hold-api/candidate-b/seat_hold_api/domain.py"],
+          "deduction": "Operational design notes are useful and consistent with source, but there is no current architecture/development/testing authority; the current API doc consistently preserves the wrong repeat-cancel meaning."
+        },
+        "reproducible_handoff": {
+          "score": 4.5,
+          "maximum": 5,
+          "evidence": ["playground/runs/seat-hold-api/candidate-b/HANDOFF.md", "playground/evaluation/command-results/product-verification.json"],
+          "deduction": "The Python 3.11+ prerequisite, install, test, wheel, run, persistence, and limitations are reproducible once a supported interpreter is selected; the clock-test mechanism is not documented."
+        }
+      },
+      "product_detail": "playground/evaluation/product-scorecards/seat-hold-api.json"
+    }
+  }
+}

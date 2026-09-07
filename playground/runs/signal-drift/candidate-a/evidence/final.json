@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "case": "signal-drift",
+  "candidate": "candidate-a",
+  "phase": "standard-repair-final",
+  "completed_at": "2026-08-14T17:18:33+08:00",
+  "resolved_acceptance": {
+    "SD-02": "Signal break threshold is 750ms. A non-final life loss recenters the receiver and starts an explicit 800ms damageGrace state.",
+    "SD-03": "Score uses scoreProgress and awards exactly one point per completed active second, without lock or streak multipliers.",
+    "SD-04": "P and Escape toggle pause; Enter restarts after game over; visible Pause/Resume and Restart buttons are present; window blur clears movement and pauses an active run.",
+    "SD-05": "Each stepGame call clamps dt to 100ms. Automated tests cover clamp equality and the complete 800ms grace-to-vulnerability boundary.",
+    "SD-06": "A self-contained Chrome DevTools check executed at a true 390x844 mobile viewport, measured no document or controls overflow, exercised Pause/Resume, verified load-bearing DOM text outside Canvas, and captured evidence/mobile-390x844.png."
+  },
+  "commands": [
+    {
+      "command": "npm ci --ignore-scripts --no-audit --no-fund",
+      "exit_code": 0,
+      "result": "added 54 packages in 411ms"
+    },
+    {
+      "command": "npm test",
+      "exit_code": 0,
+      "result": "Test Files 1 passed (1); Tests 10 passed (10); Duration 196ms"
+    },
+    {
+      "command": "npm run build",
+      "exit_code": 0,
+      "result": "tsc --noEmit and vite v7.1.2 production build passed; 6 modules transformed; dist/index.html 2.45 kB; CSS 5.75 kB; JS 8.17 kB; built in 75ms"
+    },
+    {
+      "command": "npm run dev -- --host 127.0.0.1",
+      "exit_code": 0,
+      "result": "VITE v7.1.2 ready at http://127.0.0.1:5173/"
+    },
+    {
+      "command": "node scripts/browser-check.mjs http://127.0.0.1:9223 http://127.0.0.1:5173/ evidence/mobile-390x844.png",
+      "exit_code": 0,
+      "result": "viewport 390x844; document scrollWidth=390 and scrollHeight=844; horizontalOverflow=false; controlsFit=true; score, lives, instructions, Pause and Restart all outside Canvas; Pause produced overlayVisible=true, phase=HELD, button=RESUME; Resume restored overlayVisible=false, phase=ACTIVE, button=PAUSE"
+    }
+  ],
+  "repair_diagnostics": [
+    {
+      "command": "npm test",
+      "exit_code": 1,
+      "result": "The first new grace-boundary test found a floating-point residue that extended grace by one 100ms step.",
+      "resolution": "Normalized damageGrace values within 1e-9 of the current step to exactly zero; the lifecycle test then passed."
+    },
+    {
+      "command": "npm run build",
+      "exit_code": 2,
+      "result": "The same intermediate run found the now-unused FIXED_STEP test import via TS6133.",
+      "resolution": "Removed the unused import; the final type-check and build passed."
+    },
+    {
+      "command": "npm run dev -- --host 127.0.0.1",
+      "exit_code": 1,
+      "result": "Initial sandboxed bind returned listen EPERM on 127.0.0.1:5173.",
+      "resolution": "Repeated the same localhost-only command with approved network permission; Vite started successfully and browser verification completed."
+    }
+  ],
+  "browser": {
+    "viewport": { "width": 390, "height": 844 },
+    "document": { "scrollWidth": 390, "scrollHeight": 844, "horizontalOverflow": false },
+    "canvas_css_size": { "width": 368, "height": 436.875 },
+    "controlsFit": true,
+    "loadBearingTextOutsideCanvas": true,
+    "pauseResumeInteraction": true,
+    "screenshot": "evidence/mobile-390x844.png"
+  },
+  "unresolved": [],
+  "cleanup": {
+    "removed": ["node_modules", "dist", "cache directories", "temporary Chrome profiles"],
+    "retained_browser_evidence": ["evidence/mobile-390x844.png"]
+  }
+}

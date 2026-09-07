@@ -1,0 +1,50 @@
+{
+  "case": "signal-drift",
+  "candidate": "candidate-a",
+  "pass": "first-pass",
+  "completed_at": "2026-08-14T16:54:08+08:00",
+  "environment": {
+    "package_manager": "npm",
+    "lockfile": "package-lock.json"
+  },
+  "checks": [
+    {
+      "command": "npm ci --ignore-scripts --no-audit --no-fund",
+      "exit_code": 0,
+      "result": "added 54 packages in 340ms"
+    },
+    {
+      "command": "npm test",
+      "exit_code": 0,
+      "result": "Test Files 1 passed (1); Tests 8 passed (8); Duration 172ms"
+    },
+    {
+      "command": "npm run build",
+      "exit_code": 0,
+      "result": "tsc --noEmit and vite v7.1.2 production build passed; 6 modules transformed; dist/index.html 2.27 kB (gzip 1.01 kB); CSS 5.04 kB (gzip 1.92 kB); JS 7.64 kB (gzip 3.34 kB); built in 115ms"
+    }
+  ],
+  "diagnostics": [
+    {
+      "command": "npm run build",
+      "exit_code": 2,
+      "result": "Initial type-check reported TS18047 nullable DOM references in src/main.ts callbacks and TS2345 for the nullable Canvas context.",
+      "resolution": "Added typed requiredElement and requiredContext guards, then reran tests and build successfully."
+    }
+  ],
+  "coverage": [
+    "seeded deterministic replay",
+    "distinct seeded disturbances",
+    "keyboard correction response",
+    "state immutability",
+    "pause and resume",
+    "in-lock scoring",
+    "life loss and recentering",
+    "game-over behavior"
+  ],
+  "artifact_policy": {
+    "retained": ["source", "tests", "package-lock.json", "HANDOFF.md", "evidence/first-pass.json"],
+    "removed_after_verification": ["node_modules", "dist"],
+    "not_created": ["coverage", "cache", "browser profile"]
+  }
+}

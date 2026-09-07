@@ -1,0 +1,5 @@
+# Register the packaged spec-driven-development skill provider in every profile
+# that installs this bundle. @deepseek-ai/dsh-base owns the skills registry.
+- insert:
+    - id: spec-driven-development-skill
+      name: dsh-spec-driven-development

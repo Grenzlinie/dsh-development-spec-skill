@@ -1,0 +1,28 @@
+{
+  "unblinded_at": "2026-08-14",
+  "condition_map_sha256": "58f04f52c4dbede40e6ecbba134f6c804526aab430d9bb1fc86bf2c67d6aefee",
+  "cases": {
+    "research-runboard": {
+      "baseline": {"candidate": "candidate-a", "product": 60.0, "process": 13.0, "total": 73.0, "first_pass_failed_acceptance": 3},
+      "treatment": {"candidate": "candidate-b", "product": 67.5, "process": 29.5, "total": 97.0, "first_pass_failed_acceptance": 0},
+      "treatment_minus_baseline": {"product": 7.5, "process": 16.5, "total": 24.0}
+    },
+    "seat-hold-api": {
+      "baseline": {"candidate": "candidate-b", "product": 60.5, "process": 14.5, "total": 75.0, "first_pass_failed_acceptance": 4},
+      "treatment": {"candidate": "candidate-a", "product": 69.0, "process": 30.0, "total": 99.0, "first_pass_failed_acceptance": 1},
+      "treatment_minus_baseline": {"product": 8.5, "process": 15.5, "total": 24.0}
+    },
+    "signal-drift": {
+      "baseline": {"candidate": "candidate-a", "product": 65.0, "process": 15.0, "total": 80.0, "first_pass_failed_acceptance": 5},
+      "treatment": {"candidate": "candidate-b", "product": 69.0, "process": 29.5, "total": 98.5, "first_pass_failed_acceptance": 0},
+      "treatment_minus_baseline": {"product": 4.0, "process": 14.5, "total": 18.5}
+    }
+  },
+  "means": {
+    "baseline": {"product_out_of_70": 61.8333, "process_out_of_30": 14.1667, "total_out_of_100": 76.0, "first_pass_failed_acceptance": 4.0},
+    "treatment": {"product_out_of_70": 68.5, "process_out_of_30": 29.6667, "total_out_of_100": 98.1667, "first_pass_failed_acceptance": 0.3333},
+    "treatment_minus_baseline": {"product": 6.6667, "process": 15.5, "total": 22.1667, "first_pass_failed_acceptance": -3.6667}
+  },
+  "sample_size": 3,
+  "interpretation": "Demonstrative paired case study; not a general causal estimate."
+}
